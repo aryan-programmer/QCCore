@@ -1,11 +1,15 @@
 ﻿using System.Text;
+using QCCore;
 using static System.Console;
 
 internal class Program
 {
 	private const ulong insts = 25;
 
-	private static void Main( string[ ] args ) => Write( "\n" );
+	private static void Main( string[ ] args )
+	{
+		Write( "\n" );
+	}
 
 	private static string GetLoopedString( string fmt , ulong start , ulong end )
 	{

@@ -6,7 +6,7 @@
 
 namespace QCCore
 {
-	struct Extents
+	struct Extent
 	{
 		using value_type = ULong;
 		using reference = ULong & ;
@@ -18,16 +18,16 @@ namespace QCCore
 
 		ULong arr[ 4 ];
 
-		constexpr Extents( std::initializer_list<ULong> initList ) noexcept :Extents( )
+		constexpr Extent( std::initializer_list<ULong> initList ) noexcept :Extent( )
 		{
 			ULong idx = 0;
 			for ( auto& val : initList ) arr[ idx++ ] = val;
 		}
-		constexpr inline Extents( const ULong& a = 0 , const ULong& b = 0 , const ULong& c = 0 , const ULong& d = 0 ) noexcept : arr { a,b,c,d } { }
-		constexpr inline Extents( const QStruct<ULong>& a ) noexcept : Extents( a.Item1 ) { }
-		constexpr inline Extents( const QStruct<ULong , ULong>& a ) noexcept : Extents( a.Item1 , a.Item2 ) { }
-		constexpr inline Extents( const QStruct<ULong , ULong , ULong>& a ) noexcept : Extents( a.Item1 , a.Item2 , a.Item3 ) { }
-		constexpr inline Extents( const QStruct<ULong , ULong , ULong , ULong>& a ) noexcept : Extents( a.Item1 , a.Item2 , a.Item3 , a.Item4 ) { }
+		constexpr inline Extent( const ULong& a = 0 , const ULong& b = 0 , const ULong& c = 0 , const ULong& d = 0 ) noexcept : arr { a,b,c,d } { }
+		constexpr inline Extent( const QStruct<ULong>& a ) noexcept : Extent( a.Item1 ) { }
+		constexpr inline Extent( const QStruct<ULong , ULong>& a ) noexcept : Extent( a.Item1 , a.Item2 ) { }
+		constexpr inline Extent( const QStruct<ULong , ULong , ULong>& a ) noexcept : Extent( a.Item1 , a.Item2 , a.Item3 ) { }
+		constexpr inline Extent( const QStruct<ULong , ULong , ULong , ULong>& a ) noexcept : Extent( a.Item1 , a.Item2 , a.Item3 , a.Item4 ) { }
 
 		constexpr inline ULong& operator[]( const ULong& idx ) noexcept { return arr[ idx ]; }
 
@@ -58,7 +58,7 @@ namespace QCCore
 		constexpr inline const_reverse_iterator crend( ) const { return std::crend( arr ); }
 	};
 
-	static Extents Ext( ULong a = 0 , ULong b = 0 , ULong c = 0 , ULong d = 0 ) { return Extents( a , b , c , d ); }
+	static Extent Ext( ULong a = 0 , ULong b = 0 , ULong c = 0 , ULong d = 0 ) { return Extent( a , b , c , d ); }
 
 	template<typename T>
 	class Array1
@@ -93,14 +93,14 @@ namespace QCCore
 	#pragma endregion
 
 		inline Array1( ) :array_ {} { }
-		inline Array1( Extents extents ) : array_( extents[ 0 ] ) { }
+		inline Array1( Extent extents ) : array_( extents[ 0 ] ) { }
 
-		inline T& operator[]( const Extents& extents ) noexcept { return array_[ extents[ 0 ] ]; }
-		inline const T& operator[]( const Extents& extents ) const noexcept { return array_[ extents[ 0 ] ]; }
-		inline T& At( const Extents& extents ) { return array_.at( extents[ 0 ] ); }
-		inline const T& At( const Extents& extents ) const { return array_.at( extents[ 0 ] ); }
-		inline T& at( const Extents& extents ) { return array_.at( extents[ 0 ] ); }
-		inline const T& at( const Extents& extents ) const { return array_.at( extents[ 0 ] ); }
+		inline T& operator[]( const Extent& extents ) noexcept { return array_[ extents[ 0 ] ]; }
+		inline const T& operator[]( const Extent& extents ) const noexcept { return array_[ extents[ 0 ] ]; }
+		inline T& At( const Extent& extents ) { return array_.at( extents[ 0 ] ); }
+		inline const T& At( const Extent& extents ) const { return array_.at( extents[ 0 ] ); }
+		inline T& at( const Extent& extents ) { return array_.at( extents[ 0 ] ); }
+		inline const T& at( const Extent& extents ) const { return array_.at( extents[ 0 ] ); }
 
 		template<typename... Args> inline Array1 Set( Args&&... args )
 		{
@@ -109,10 +109,10 @@ namespace QCCore
 		}
 
 		inline ULong Length( ) const noexcept { return array_.size( ); }
-		inline Extents Size( ) const noexcept { return array_.size( ); }
+		inline Extent Size( ) const noexcept { return array_.size( ); }
 		inline ULong Count( ) const noexcept { return array_.size( ); }
 		inline ULong size( ) const noexcept { return array_.size( ); }
-		inline Extents length( ) const noexcept { return array_.size( ); }
+		inline Extent length( ) const noexcept { return array_.size( ); }
 		inline ULong count( ) const noexcept { return array_.size( ); }
 
 		inline array_t& __NATIVE( ) noexcept { return array_; }
@@ -124,9 +124,9 @@ namespace QCCore
 	{
 		using array_t = std::vector<T>;
 		array_t array_;
-		Extents sz;
+		Extent sz;
 
-		inline ULong cnvtExtntTIdx( const Extents& ext ) const noexcept
+		inline ULong cnvtExtntTIdx( const Extent& ext ) const noexcept
 		{
 			return
 				ext[ 1 ] +
@@ -160,17 +160,17 @@ namespace QCCore
 	#pragma endregion
 
 		inline Array2( ) :array_ {} , sz { 0,0,0,0 } { }
-		inline Array2( Extents extents ) : array_( extents[ 0 ] * extents[ 1 ] ) , sz { extents } { }
+		inline Array2( Extent extents ) : array_( extents[ 0 ] * extents[ 1 ] ) , sz { extents } { }
 
-		inline T& operator[]( const Extents& extents ) noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
-		inline const T& operator[]( const Extents& extents ) const noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
-		inline T& At( const Extents& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		inline const T& At( const Extents& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
-		inline T& at( const Extents& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		inline const T& at( const Extents& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline T& operator[]( const Extent& extents ) noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
+		inline const T& operator[]( const Extent& extents ) const noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
+		inline T& At( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline const T& At( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline T& at( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline const T& at( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
 
-		inline Extents Size( ) const noexcept { return sz; }
-		inline Extents size( ) const noexcept { return sz; }
+		inline Extent Size( ) const noexcept { return sz; }
+		inline Extent size( ) const noexcept { return sz; }
 
 		inline array_t& __NATIVE( ) noexcept { return array_; }
 		inline const array_t& __NATIVE( ) const noexcept { return array_; }
@@ -181,9 +181,9 @@ namespace QCCore
 	{
 		using array_t = std::vector<T>;
 		array_t array_;
-		Extents sz;
+		Extent sz;
 
-		inline ULong cnvtExtntTIdx( const Extents& ext ) const noexcept
+		inline ULong cnvtExtntTIdx( const Extent& ext ) const noexcept
 		{
 			return
 				ext[ 2 ] +
@@ -218,17 +218,17 @@ namespace QCCore
 	#pragma endregion
 
 		inline Array3( ) :array_ {} , sz { 0,0,0,0 } { }
-		inline Array3( Extents extents ) : array_( extents[ 0 ] * extents[ 1 ] * extents[ 2 ] ) , sz { extents } { }
+		inline Array3( Extent extents ) : array_( extents[ 0 ] * extents[ 1 ] * extents[ 2 ] ) , sz { extents } { }
 
-		inline T& operator[]( const Extents& extents ) noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
-		inline const T& operator[]( const Extents& extents ) const noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
-		inline T& At( const Extents& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		inline const T& At( const Extents& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
-		inline T& at( const Extents& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		inline const T& at( const Extents& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline T& operator[]( const Extent& extents ) noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
+		inline const T& operator[]( const Extent& extents ) const noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
+		inline T& At( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline const T& At( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline T& at( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline const T& at( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
 
-		inline Extents Size( ) const noexcept { return sz; }
-		inline Extents size( ) const noexcept { return sz; }
+		inline Extent Size( ) const noexcept { return sz; }
+		inline Extent size( ) const noexcept { return sz; }
 
 		inline array_t& __NATIVE( ) noexcept { return array_; }
 		inline const array_t& __NATIVE( ) const noexcept { return array_; }
@@ -239,9 +239,9 @@ namespace QCCore
 	{
 		using array_t = std::vector<T>;
 		array_t array_;
-		Extents sz;
+		Extent sz;
 
-		inline ULong cnvtExtntTIdx( const Extents& ext ) const noexcept
+		inline ULong cnvtExtntTIdx( const Extent& ext ) const noexcept
 		{
 			return
 				ext[ 3 ] +
@@ -277,17 +277,17 @@ namespace QCCore
 	#pragma endregion
 
 		inline Array4( ) :array_ {} , sz { 0,0,0,0 } { }
-		inline Array4( Extents extents ) : array_( extents[ 0 ] * extents[ 1 ] * extents[ 2 ] * extents[ 3 ] ) , sz { extents } { }
+		inline Array4( Extent extents ) : array_( extents[ 0 ] * extents[ 1 ] * extents[ 2 ] * extents[ 3 ] ) , sz { extents } { }
 
-		inline T& operator[]( const Extents& extents ) noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
-		inline const T& operator[]( const Extents& extents ) const noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
-		inline T& At( const Extents& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		inline const T& At( const Extents& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
-		inline T& at( const Extents& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		inline const T& at( const Extents& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline T& operator[]( const Extent& extents ) noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
+		inline const T& operator[]( const Extent& extents ) const noexcept { return array_[ cnvtExtntTIdx( extents ) ]; }
+		inline T& At( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline const T& At( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline T& at( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
+		inline const T& at( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
 
-		inline Extents Size( ) const noexcept { return sz; }
-		inline Extents size( ) const noexcept { return sz; }
+		inline Extent Size( ) const noexcept { return sz; }
+		inline Extent size( ) const noexcept { return sz; }
 
 		inline array_t& __NATIVE( ) noexcept { return array_; }
 		inline const array_t& __NATIVE( ) const noexcept { return array_; }
@@ -327,7 +327,7 @@ namespace QCCore
 	#pragma endregion
 
 		inline DynArray( ) : base_t( ) { }
-		inline DynArray( int len ) : base_t( len ) { }
+		inline DynArray( int len ) : base_t( ) { base( ).reserve( len ); }
 		template<typename TIter>
 		inline DynArray( const TIter& beg , const TIter& end ) : base_t( beg , end ) { }
 		inline DynArray( std::initializer_list<T> init ) : base_t( init ) { }
@@ -350,23 +350,68 @@ namespace QCCore
 		template<typename TF>
 		inline const T& Find( TF&& func ) const { return *std::find_if( begin( ) , end( ) , std::forward<TF>( func ) ); }
 		template<typename TF>
+		DynArray<T> FindAll( TF&& func )
+		{
+			DynArray<T> retVal;
+			std::copy_if( begin( ) , end( ) , std::back_inserter( retVal ) , std::forward<TF>( func ) );
+			return retVal;
+		}
+		template<typename TF>
+		DynArray<T> FindAll( TF&& func ) const
+		{
+			DynArray<T> retVal;
+			std::copy_if( begin( ) , end( ) , std::back_inserter( retVal ) , std::forward<TF>( func ) );
+			return retVal;
+		}
+		template<typename TF>
+		inline int FindIndex( int startIndex , int count , TF&& match )
+		{
+			auto iter = std::find_if( begin( ) + startIndex , begin( ) + startIndex + count , std::forward<TF>( match ) );
+			if ( iter == ( begin( ) + startIndex + count ) )return -1;
+			return iter - begin( );
+		}
+		template<typename TF>
+		inline int FindIndex( int startIndex , TF&& match )
+		{
+			auto iter = std::find_if( begin( ) + startIndex , end( ) , std::forward<TF>( match ) );
+			if ( iter == end( ) )return -1;
+			return iter - begin( );
+		}
+		template<typename TF>
+		inline int FindIndex( TF&& match )
+		{
+			auto iter = std::find_if( begin( ) , end( ) , std::forward<TF>( match ) );
+			if ( iter == end( ) )return -1;
+			return iter - begin( );
+		}
+		template<typename TF>
 		inline int FindIndex( int startIndex , int count , TF&& match ) const
-		{ return std::find_if( begin( ) + startIndex , begin( ) + startIndex + count + 1 , std::forward<TF>( match ) ) - begin( ); }
+		{
+			auto iter = std::find_if( begin( ) + startIndex , begin( ) + startIndex + count , std::forward<TF>( match ) );
+			if ( iter == ( begin( ) + startIndex + count ) )return -1;
+			return iter - begin( );
+		}
 		template<typename TF>
 		inline int FindIndex( int startIndex , TF&& match ) const
-		{ return std::find_if( begin( ) + startIndex , end( ) , std::forward<TF>( match ) ) - begin( ); }
+		{
+			auto iter = std::find_if( begin( ) + startIndex , end( ) , std::forward<TF>( match ) );
+			if ( iter == end( ) )return -1;
+			return iter - begin( );
+		}
 		template<typename TF>
 		inline int FindIndex( TF&& match ) const
-		{ return std::find_if( begin( ) , end( ) , std::forward<TF>( match ) ) - begin( ); }
+		{
+			auto iter = std::find_if( begin( ) , end( ) , std::forward<TF>( match ) );
+			if ( iter == end( ) )return -1;
+			return iter - begin( );
+		}
 		template<typename TF>
-		inline T& FindLast( TF&& func )
-		{ return *std::find_if( rbegin( ) , rend( ) , std::forward<TF>( func ) ); }
-		template<typename TF>
-		inline const T& FindLast( TF&& func ) const
-		{ return *std::find_if( rbegin( ) , rend( ) , std::forward<TF>( func ) ); }
-		template<typename TF>
-		inline int FindLastIndex( TF&& match ) const
-		{ return std::find_if( rbegin( ) , rend( ) , std::forward<TF>( match ) ) - rbegin( ); }
+		inline int FindLastIndex( TF&& match )
+		{
+			auto iter = std::find_if( rbegin( ) , rend( ) , std::forward<TF>( match ) );
+			if ( iter == rend( ) )return -1;
+			return base( ).size( ) - 1 - ( iter - rbegin( ) );
+		}
 		template<typename TF>
 		inline void ForEach( TF&& f )
 		{ std::for_each( begin( ) , end( ) , std::forward<TF>( f ) ); }
@@ -380,7 +425,7 @@ namespace QCCore
 		inline void RevForEach( TF&& f ) const
 		{ std::for_each( rbegin( ) , rend( ) , std::forward<TF>( f ) ); }
 		inline DynArray<T> GetRange( int index , int count )
-		{ return DynArray<T>( begin( ) + index , begin( ) + index + count + 1 ); }
+		{ return DynArray<T>( begin( ) + index , begin( ) + index + count ); }
 		int IndexOf( const T& item , int index , int count )
 		{
 			auto idx = std::find( begin( ) + index , begin( ) + index + count + 1 , item );
@@ -404,9 +449,9 @@ namespace QCCore
 		{ base( ).emplace( begin( ) + index , std::forward<T>( item ) ); }
 		int LastIndexOf( const T& item )
 		{
-			auto idx = std::find( rbegin( ) , rend( ) , item );
-			if ( idx == rend( ) )return -1;
-			return idx - rbegin( );
+			auto iter = std::find( rbegin( ) , rend( ) , item );
+			if ( iter == rend( ) )return -1;
+			return base( ).size( ) - 1 - ( iter - rbegin( ) );
 		}
 		bool Remove( T const& item )
 		{
@@ -428,17 +473,17 @@ namespace QCCore
 				}
 			return no;
 		}
-		inline void Reverse( int index , int count ) { std::reverse( begin( ) + index , begin( ) + index + count + 1 ); }
+		inline void Reverse( int index , int count ) { std::reverse( begin( ) + index , begin( ) + index + count ); }
 		inline void Reverse( ) { std::reverse( begin( ) , end( ) ); }
-		inline int GetCapacity( ) { return base( ).capacity( ); }
-		inline void SetCapacity(int size ) { base( ).reserve( size ); }
+		inline int Capacity( ) { return base( ).capacity( ); }
+		inline void Capacity( int size ) { base( ).reserve( size ); }
 
 		template<typename TF>
 		inline void Sort( int index , int count , TF&& comparer )
-		{ std::stable_sort( begin( ) + index , begin( ) + index + count + 1 , std::forward<TF>( comparer ) ); }
+		{ std::stable_sort( begin( ) + index , begin( ) + index + count , std::forward<TF>( comparer ) ); }
 		inline void Sort( ) { std::stable_sort( begin( ) , end( ) ); }
 		template<typename TF>
-		inline void Sort( TF&& comparer ){ std::stable_sort( begin( ) , end( ),std::forward<TF>( comparer ) ); }
+		inline void Sort( TF&& comparer ) { std::stable_sort( begin( ) , end( ) , std::forward<TF>( comparer ) ); }
 		inline void TrimExcess( ) { base( ).shrink_to_fit( ); }
 		template<typename TF>
 		inline bool TrueForAll( TF&& match ) { return std::all_of( begin( ) , end( ) , std::forward<TF>( match ) ); }
