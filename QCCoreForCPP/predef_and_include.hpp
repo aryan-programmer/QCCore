@@ -17,6 +17,10 @@
 #include <boost\type_traits\add_const.hpp>
 #include <boost\type_traits\add_reference.hpp>
 #include <boost\type_traits\remove_cv_ref.hpp>
+#include <boost\preprocessor\variadic\size.hpp>
+#include <boost\preprocessor\variadic\to_seq.hpp>
+#include <boost\preprocessor\seq\for_each_i.hpp>
+#include <boost\preprocessor\arithmetic\inc.hpp>
 
 namespace std
 {
@@ -82,7 +86,10 @@ namespace std
 #undef ___NODISCARD___
 }
 
+#define _DECOMPOSE_QS_NNV_helper(r, data, i, elem) elem = data.BOOST_PP_CAT(Item,BOOST_PP_INC(i));
+#define _DECOMPOSE_QS_NNV(qstruct, ...) BOOST_PP_SEQ_FOR_EACH_I(_DECOMPOSE_QS_NNV_helper,qstruct,BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__)); static_assert(::QCCore::__dimentionality<boost::remove_cv_ref_t<decltype(qstruct)>>::value == BOOST_PP_VARIADIC_SIZE(__VA_ARGS__),"The number of elements of the QStruct and the number of variables being decomposed to must match.")
 #define _DECOMPOSE_QS(qstruct, ...) auto [__VA_ARGS__] = qstruct
+#define forceinline BOOST_FORCEINLINE
 
 namespace QCCore
 {
@@ -124,38 +131,38 @@ namespace QCCore
 	constexpr inline bool AreEqualDTrue( const T1& v1 , const T2& v2 );
 
 #pragma region Limits
-	inline constexpr const Int16 Int16Min = INT16_MIN;
-	inline constexpr const Int16 Int16Max = INT16_MAX;
-	inline constexpr const Int32 Int32Min = INT32_MIN;
-	inline constexpr const Int32 Int32Max = INT32_MAX;
-	inline constexpr const Int64 Int64Min = INT64_MIN;
-	inline constexpr const Int64 Int64Max = INT64_MAX;
-	inline constexpr const UInt16 UInt16Min = 0;
-	inline constexpr const UInt16 UInt16Max = UINT16_MAX;
-	inline constexpr const UInt32 UInt32Min = 0;
-	inline constexpr const UInt32 UInt32Max = UINT32_MAX;
-	inline constexpr const UInt64 UInt64Min = 0;
-	inline constexpr const UInt64 UInt64Max = UINT64_MAX;
-	inline constexpr const Short ShortMin = INT16_MIN;
-	inline constexpr const Short ShortMax = INT16_MAX;
-	inline constexpr const Int IntMin = INT32_MIN;
-	inline constexpr const Int IntMax = INT32_MAX;
-	inline constexpr const Long LongMin = INT64_MIN;
-	inline constexpr const Long LongMax = INT64_MAX;
-	inline constexpr const UShort UShortMin = 0;
-	inline constexpr const UShort UShortMax = UINT16_MAX;
-	inline constexpr const UInt UIntMin = 0;
-	inline constexpr const UInt UIntMax = UINT32_MAX;
-	inline constexpr const ULong ULongMin = 0;
-	inline constexpr const ULong ULongMax = UINT64_MAX;
-	inline constexpr const Char CharMin = CHAR_MIN;
-	inline constexpr const Char CharMax = CHAR_MAX;
-	inline constexpr const WChar WCharMin = WCHAR_MIN;
-	inline constexpr const WChar WCharMax = WCHAR_MAX;
-	inline constexpr const Byte ByteMin = ( Byte ) 0;
-	inline constexpr const Byte ByteMax = ( Byte ) UCHAR_MAX;
-	inline constexpr const SByte SByteMin = ( SByte ) CHAR_MIN;
-	inline constexpr const SByte SByteMax = ( SByte ) CHAR_MAX;
+	inline constexpr const Int16	Int16Min	= INT16_MIN;
+	inline constexpr const Int16	Int16Max	= INT16_MAX;
+	inline constexpr const Int32	Int32Min	= INT32_MIN;
+	inline constexpr const Int32	Int32Max	= INT32_MAX;
+	inline constexpr const Int64	Int64Min	= INT64_MIN;
+	inline constexpr const Int64	Int64Max	= INT64_MAX;
+	inline constexpr const UInt16	UInt16Min	= 0;
+	inline constexpr const UInt16	UInt16Max	= UINT16_MAX;
+	inline constexpr const UInt32	UInt32Min	= 0;
+	inline constexpr const UInt32	UInt32Max	= UINT32_MAX;
+	inline constexpr const UInt64	UInt64Min	= 0;
+	inline constexpr const UInt64	UInt64Max	= UINT64_MAX;
+	inline constexpr const Short	ShortMin	= INT16_MIN;
+	inline constexpr const Short	ShortMax	= INT16_MAX;
+	inline constexpr const Int		IntMin		= INT32_MIN;
+	inline constexpr const Int		IntMax		= INT32_MAX;
+	inline constexpr const Long		LongMin		= INT64_MIN;
+	inline constexpr const Long		LongMax		= INT64_MAX;
+	inline constexpr const UShort	UShortMin	= 0;
+	inline constexpr const UShort	UShortMax	= UINT16_MAX;
+	inline constexpr const UInt		UIntMin		= 0;
+	inline constexpr const UInt		UIntMax		= UINT32_MAX;
+	inline constexpr const ULong	ULongMin	= 0;
+	inline constexpr const ULong	ULongMax	= UINT64_MAX;
+	inline constexpr const Char		CharMin		= CHAR_MIN;
+	inline constexpr const Char		CharMax		= CHAR_MAX;
+	inline constexpr const WChar	WCharMin	= WCHAR_MIN;
+	inline constexpr const WChar	WCharMax	= WCHAR_MAX;
+	inline constexpr const Byte		ByteMin		= ( Byte ) 0;
+	inline constexpr const Byte		ByteMax		= ( Byte ) UCHAR_MAX;
+	inline constexpr const SByte	SByteMin	= ( SByte ) CHAR_MIN;
+	inline constexpr const SByte	SByteMax	= ( SByte ) CHAR_MAX;
 #pragma endregion
 
 }

@@ -175,12 +175,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Array.h" />
-    <ClInclude Include="ConstN.h" />
+    <ClInclude Include="Array.hpp" />
+    <ClInclude Include="ConstN.hpp" />
+    <ClInclude Include="GCPtr.hpp" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="predef_and_include.h" />
-    <ClInclude Include="QCCore.h" />
-    <ClInclude Include="QStruct.h" />
+    <ClInclude Include="predef_and_include.hpp" />
+    <ClInclude Include="QCCore.hpp" />
+    <ClInclude Include="QStruct.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

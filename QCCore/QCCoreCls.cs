@@ -36,9 +36,12 @@
 		#endregion
 
 		public static T As<T>( object obj ) => ( T ) obj;
-		public static string RTTITypeName<T>( T v ) => v.GetType().FullName;
+		public static T AsPtr<T>( object obj ) where T : class => obj as T;
 		public static string TypeName<T>( T v ) => typeof( T ).FullName;
 		public static string TypeNameNoCVR<T>( T v ) => typeof( T ).FullName;
+		public static string TypeName<T>( ) => typeof( T ).FullName;
+		public static string TypeNameNoCVR<T>( ) => typeof( T ).FullName;
+		public static string RTTITypeName<T>( T v ) => v.GetType().FullName;
 
 		public static FPipable<TReturn , TArg> MFPipable<TReturn, TArg>( Function<TReturn , TArg> function ) => new FPipable<TReturn , TArg>( function );
 
@@ -485,6 +488,430 @@
 		}
 
 		public static void _DECOMPOSE_QS<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 , out T16 Item16 , out T17 Item17 , out T18 Item18 , out T19 Item19 , out T20 Item20 , out T21 Item21 , out T22 Item22 , out T23 Item23 , out T24 Item24 , out T25 Item25 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+			Item15 = tup.Item15;
+			Item16 = tup.Item16;
+			Item17 = tup.Item17;
+			Item18 = tup.Item18;
+			Item19 = tup.Item19;
+			Item20 = tup.Item20;
+			Item21 = tup.Item21;
+			Item22 = tup.Item22;
+			Item23 = tup.Item23;
+			Item24 = tup.Item24;
+			Item25 = tup.Item25;
+		}
+		#endregion
+
+		#region _DECOMPOSE_QS_NNV
+		public static void _DECOMPOSE_QS_NNV<T1>( QStruct<T1> tup , out T1 Item1 ) => Item1 = tup.Item1;
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2>( QStruct<T1 , T2> tup , out T1 Item1 , out T2 Item2 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3>( QStruct<T1 , T2 , T3> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4>( QStruct<T1 , T2 , T3 , T4> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5>( QStruct<T1 , T2 , T3 , T4 , T5> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6>( QStruct<T1 , T2 , T3 , T4 , T5 , T6> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+			Item15 = tup.Item15;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 , out T16 Item16 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+			Item15 = tup.Item15;
+			Item16 = tup.Item16;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 , out T16 Item16 , out T17 Item17 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+			Item15 = tup.Item15;
+			Item16 = tup.Item16;
+			Item17 = tup.Item17;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 , out T16 Item16 , out T17 Item17 , out T18 Item18 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+			Item15 = tup.Item15;
+			Item16 = tup.Item16;
+			Item17 = tup.Item17;
+			Item18 = tup.Item18;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 , out T16 Item16 , out T17 Item17 , out T18 Item18 , out T19 Item19 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+			Item15 = tup.Item15;
+			Item16 = tup.Item16;
+			Item17 = tup.Item17;
+			Item18 = tup.Item18;
+			Item19 = tup.Item19;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 , out T16 Item16 , out T17 Item17 , out T18 Item18 , out T19 Item19 , out T20 Item20 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+			Item15 = tup.Item15;
+			Item16 = tup.Item16;
+			Item17 = tup.Item17;
+			Item18 = tup.Item18;
+			Item19 = tup.Item19;
+			Item20 = tup.Item20;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 , out T16 Item16 , out T17 Item17 , out T18 Item18 , out T19 Item19 , out T20 Item20 , out T21 Item21 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+			Item15 = tup.Item15;
+			Item16 = tup.Item16;
+			Item17 = tup.Item17;
+			Item18 = tup.Item18;
+			Item19 = tup.Item19;
+			Item20 = tup.Item20;
+			Item21 = tup.Item21;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 , out T16 Item16 , out T17 Item17 , out T18 Item18 , out T19 Item19 , out T20 Item20 , out T21 Item21 , out T22 Item22 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+			Item15 = tup.Item15;
+			Item16 = tup.Item16;
+			Item17 = tup.Item17;
+			Item18 = tup.Item18;
+			Item19 = tup.Item19;
+			Item20 = tup.Item20;
+			Item21 = tup.Item21;
+			Item22 = tup.Item22;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 , out T16 Item16 , out T17 Item17 , out T18 Item18 , out T19 Item19 , out T20 Item20 , out T21 Item21 , out T22 Item22 , out T23 Item23 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+			Item15 = tup.Item15;
+			Item16 = tup.Item16;
+			Item17 = tup.Item17;
+			Item18 = tup.Item18;
+			Item19 = tup.Item19;
+			Item20 = tup.Item20;
+			Item21 = tup.Item21;
+			Item22 = tup.Item22;
+			Item23 = tup.Item23;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 , out T16 Item16 , out T17 Item17 , out T18 Item18 , out T19 Item19 , out T20 Item20 , out T21 Item21 , out T22 Item22 , out T23 Item23 , out T24 Item24 )
+		{
+			Item1 = tup.Item1;
+			Item2 = tup.Item2;
+			Item3 = tup.Item3;
+			Item4 = tup.Item4;
+			Item5 = tup.Item5;
+			Item6 = tup.Item6;
+			Item7 = tup.Item7;
+			Item8 = tup.Item8;
+			Item9 = tup.Item9;
+			Item10 = tup.Item10;
+			Item11 = tup.Item11;
+			Item12 = tup.Item12;
+			Item13 = tup.Item13;
+			Item14 = tup.Item14;
+			Item15 = tup.Item15;
+			Item16 = tup.Item16;
+			Item17 = tup.Item17;
+			Item18 = tup.Item18;
+			Item19 = tup.Item19;
+			Item20 = tup.Item20;
+			Item21 = tup.Item21;
+			Item22 = tup.Item22;
+			Item23 = tup.Item23;
+			Item24 = tup.Item24;
+		}
+
+		public static void _DECOMPOSE_QS_NNV<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>( QStruct<T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25> tup , out T1 Item1 , out T2 Item2 , out T3 Item3 , out T4 Item4 , out T5 Item5 , out T6 Item6 , out T7 Item7 , out T8 Item8 , out T9 Item9 , out T10 Item10 , out T11 Item11 , out T12 Item12 , out T13 Item13 , out T14 Item14 , out T15 Item15 , out T16 Item16 , out T17 Item17 , out T18 Item18 , out T19 Item19 , out T20 Item20 , out T21 Item21 , out T22 Item22 , out T23 Item23 , out T24 Item24 , out T25 Item25 )
 		{
 			Item1 = tup.Item1;
 			Item2 = tup.Item2;

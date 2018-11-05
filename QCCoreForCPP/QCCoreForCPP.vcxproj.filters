@@ -18,19 +18,22 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QStruct.h">
+    <ClInclude Include="Array.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QCCore.h">
+    <ClInclude Include="ConstN.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConstN.h">
+    <ClInclude Include="GCPtr.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Array.h">
+    <ClInclude Include="predef_and_include.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="predef_and_include.h">
+    <ClInclude Include="QCCore.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QStruct.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

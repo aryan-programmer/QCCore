@@ -44,10 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Array.cs" />
+    <Compile Include="GCPtr.cs" />
     <Compile Include="ConstN.cs" />
     <Compile Include="FPipable.cs" />
     <Compile Include="Function.cs" />
     <Compile Include="IDynArray.cs" />
+    <Compile Include="IGCPtr.cs" />
+    <Compile Include="IWeakPtr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QCCoreCls.cs" />
     <Compile Include="QStruct.cs" />

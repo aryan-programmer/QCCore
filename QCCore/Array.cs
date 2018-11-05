@@ -4,6 +4,17 @@ using System.Collections.Generic;
 
 namespace QCCore
 {
+	[Serializable]
+	public class ValueNotFoundException : Exception
+	{
+		public ValueNotFoundException( ) { }
+		public ValueNotFoundException( string message ) : base( message ) { }
+		public ValueNotFoundException( string message , Exception inner ) : base( message , inner ) { }
+		protected ValueNotFoundException(
+		  System.Runtime.Serialization.SerializationInfo info ,
+		  System.Runtime.Serialization.StreamingContext context ) : base( info , context ) { }
+	}
+
 	public interface IHasNative<out TNative>
 	{
 		TNative __NATIVE( );
@@ -211,6 +222,12 @@ namespace QCCore
 		{ for ( int i = Size() - 1; i >= 0; i-- ) action( this[ i ] ); }
 		public new int Capacity( ) => base.Capacity;
 		public new void Capacity( int size ) => base.Capacity = size;
+		public new T Find( Predicate<T> match )
+		{
+			var idx = FindIndex( match );
+			if ( idx == -1 ) throw new ValueNotFoundException( "ValueNotFoundException" );
+			return this[ idx ];
+		}
 
 		public List<T> __NATIVE( ) => this;
 	}

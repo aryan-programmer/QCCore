@@ -552,17 +552,17 @@ struct " );
 			WriteNewLine();
 			#region Operators "==" && "!="
 			Write( @"
-	constexpr inline bool operator ==( const self& rhs ) const { return Equals( rhs );}
-	constexpr inline bool operator !=( const self& rhs ) const {return !Equals(rhs);}" );
+	constexpr forceinline bool operator ==( const self& rhs ) const { return Equals( rhs );}
+	constexpr forceinline bool operator !=( const self& rhs ) const {return !Equals(rhs);}" );
 			#endregion
 			WriteNewLine();
 			#region Operator "[]"
 			Write( GetLoopedString( @"
-	constexpr inline T{0}& operator[](Const{0}) __OPEN_BRACE__ return Item{0}; __CLOSE_BRACE__" , 1 , nIter ) );
+	constexpr forceinline T{0}& operator[](Const{0}) __OPEN_BRACE__ return Item{0}; __CLOSE_BRACE__" , 1 , nIter ) );
 			WriteNewLine();
 			#region Const Operator "[]"
 			Write( GetLoopedString( @"
-	constexpr inline const T{0}& operator[](Const{0}) const __OPEN_BRACE__ return Item{0}; __CLOSE_BRACE__" , 1 , nIter ) );
+	constexpr forceinline const T{0}& operator[](Const{0}) const __OPEN_BRACE__ return Item{0}; __CLOSE_BRACE__" , 1 , nIter ) );
 			#endregion
 			#endregion
 			WriteNewLine();

@@ -1,5 +1,5 @@
 #pragma once
-#include "predef_and_include.h"
+#include "predef_and_include.hpp"
 
 namespace QCCore
 {
