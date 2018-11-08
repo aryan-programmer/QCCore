@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Text;
+﻿using System.Text;
 using static System.Console;
 
 internal sealed class Program
@@ -8,7 +7,8 @@ internal sealed class Program
 
 	private static void Main( string[ ] args )
 	{
-		CPPPrint_Tuple_ClassTemplates();
+		byte a = 1, b = 1;
+		int c = a + b;
 		Write( "" );
 	}
 

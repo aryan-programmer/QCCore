@@ -36,7 +36,7 @@
     <ClInclude Include="QStruct.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IOStream.hpp">
+    <ClInclude Include="Math.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

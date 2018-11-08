@@ -63,7 +63,7 @@ namespace QCCore
 			arr[ 3 ] == other.arr[ 3 ];
 	}
 
-	public static partial class QCCoreCls
+	public static partial class MainCls
 	{
 		public static Extent Ext( ulong a = 0 , ulong b = 0 , ulong c = 0 , ulong d = 0 ) => new Extent( a , b , c , d );
 	}

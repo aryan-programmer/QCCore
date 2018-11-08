@@ -9,7 +9,7 @@ namespace QCCore
 	[SuppressMessage("NDepend", "ND2006:TypesNameShouldBeginWithAnUpperCharacter", Justification="Language Keyword")]
 	public struct nullptr_t { };
 #pragma warning restore IDE1006 // Naming Styles
-	public static partial class QCCoreCls
+	public static partial class MainCls
 	{ public static readonly nullptr_t nullptr = new nullptr_t(); }
 
 	[System.Serializable]
@@ -39,7 +39,7 @@ namespace QCCore
 #pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 	public struct GCPtr<T> :
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
-		IHasNative<T>, IGCPtr<T>, IEquatable<GCPtr<T>> where T : class
+		IHasNative<T>, IEquatable<GCPtr<T>> where T : class
 #pragma warning restore CS0661 // No GetHashCode()
 #pragma warning restore CS0660 // No Equals(object o)
 	{
@@ -78,7 +78,7 @@ namespace QCCore
 	public struct WeakPtr<T> :
 #pragma warning restore CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
-		IHasNative<System.WeakReference>, IWeakPtr<T>, IEquatable<WeakPtr<T>> where T : class
+		IHasNative<System.WeakReference>, IEquatable<WeakPtr<T>> where T : class
 	{
 		private System.WeakReference wptr;
 
@@ -89,12 +89,12 @@ namespace QCCore
 
 		public bool Expired( ) => !( wptr?.IsAlive ?? true );
 
-		public GCPtr<T> Lock( ) => wptr == null ? new GCPtr<T>( ( T ) wptr.Target ) : new GCPtr<T>( QCCoreCls.nullptr );
+		public GCPtr<T> Lock( ) => wptr == null ? new GCPtr<T>( ( T ) wptr.Target ) : new GCPtr<T>( MainCls.nullptr );
 
 		public GCPtr<T> LockIfNotThrow( )
 		{
 			GCPtr<T> lockedVal = Lock();
-			if ( lockedVal == QCCoreCls.nullptr ) throw new BadWeakPtrException( "BadWeakPtrException" );
+			if ( lockedVal == MainCls.nullptr ) throw new BadWeakPtrException( "BadWeakPtrException" );
 			return lockedVal;
 		}
 

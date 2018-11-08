@@ -178,6 +178,7 @@
     <ClInclude Include="Array.hpp" />
     <ClInclude Include="ConstN.hpp" />
     <ClInclude Include="GCPtr.hpp" />
+    <ClInclude Include="Math.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="predef_and_include.hpp" />
     <ClInclude Include="QCCore.hpp" />

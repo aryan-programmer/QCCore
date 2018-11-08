@@ -16,7 +16,7 @@
 	public struct Const14 { }
 	public struct Const15 { }
 
-	public static partial class QCCoreCls
+	public static partial class MainCls
 	{
 		public static readonly Const1 C1 = new Const1();
 		public static readonly Const2 C2 = new Const2();

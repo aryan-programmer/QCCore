@@ -1,11 +1,11 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using static QCCore.QCCoreCls;
+using static QCCore.MainCls;
 
 namespace QCCore
 {
-	public static partial class QCCoreCls
+	public static partial class MainCls
 	{
 		#region MakeQStruct
 		public static QStruct<T1> MakeQStruct<T1>( T1 Item1 ) => new QStruct<T1>( Item1 );
