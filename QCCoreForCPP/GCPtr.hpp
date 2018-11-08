@@ -56,7 +56,10 @@ namespace QCCore
 
 		forceinline std::shared_ptr<T>& __NATIVE( ) noexcept { return ptr; }
 		forceinline const std::shared_ptr<T>& __NATIVE( ) const noexcept { return ptr; }
+		forceinline bool operator ==( GCPtr<T> ptr2 ) { return Equals( ptr2 ); }
+		forceinline bool operator !=( GCPtr<T> ptr2 ) { return !Equals( ptr2 ); }
 
+		forceinline bool Equals( GCPtr<T> other ) { return ptr == other.ptr; }
 		template<typename T>
 		friend class WeakPtr;
 		template<typename T>
@@ -77,7 +80,7 @@ namespace QCCore
 		std::weak_ptr<T> wptr;
 
 		forceinline WeakPtr( std::weak_ptr<T>&& p ) :wptr( std::move( p ) ) { }
-		forceinline WeakPtr( const std::weak_ptr<T>& p ) : wptr( p )){}
+		forceinline WeakPtr( const std::weak_ptr<T>& p ) : wptr( p ){}
 	public:
 		forceinline WeakPtr( ) noexcept :wptr( ) { }
 		forceinline WeakPtr( nullptr_t ) noexcept :wptr( ) { }

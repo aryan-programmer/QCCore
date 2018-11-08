@@ -36,17 +36,17 @@ namespace QCCore
 	template<typename T> forceinline const T& As( const Object& obj )
 	{
 		try { return *boost::any_cast< T >( &obj ); }
-		catch ( ... ) { throw InvalidCastException( ); }
+		catch ( const std::exception& ) { throw InvalidCastException( ); }
 	}
 	template<typename T> forceinline T& As( Object& obj )
 	{
 		try { return *boost::any_cast< T >( &obj ); }
-		catch ( ... ) { throw InvalidCastException( ); }
+		catch ( const std::exception& ) { throw InvalidCastException( ); }
 	}
 	template<typename T> forceinline T As( Object&& obj )
 	{
 		try { return boost::any_cast< T >( obj ); }
-		catch ( ... ) { throw InvalidCastException( ); }
+		catch ( const std::exception& ) { throw InvalidCastException( ); }
 	}
 	template<typename T> forceinline T* AsPtr( Object* obj ) noexcept( boost::any_cast< T >( obj ) )
 	{

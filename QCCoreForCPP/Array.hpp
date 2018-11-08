@@ -16,6 +16,9 @@ namespace QCCore
 
 	struct Extent
 	{
+	private:
+		ULong arr[ 4 ];
+	public:
 		using value_type = ULong;
 		using reference = ULong & ;
 		using const_reference = const ULong&;
@@ -23,8 +26,6 @@ namespace QCCore
 		using const_iterator = const ULong*;
 		using reverse_iterator = std::reverse_iterator<ULong *>;
 		using const_reverse_iterator = std::reverse_iterator<const ULong *>;
-
-		ULong arr[ 4 ];
 
 		constexpr Extent( std::initializer_list<ULong> initList ) noexcept :Extent( )
 		{
@@ -47,9 +48,6 @@ namespace QCCore
 		constexpr forceinline ULong Length( ) const noexcept { return 4; }
 		constexpr forceinline ULong Size( ) const noexcept { return 4; }
 		constexpr forceinline ULong Count( ) const noexcept { return 4; }
-		constexpr forceinline ULong size( ) const noexcept { return 4; }
-		constexpr forceinline ULong length( ) const noexcept { return 4; }
-		constexpr forceinline ULong count( ) const noexcept { return 4; }
 
 		constexpr forceinline iterator begin( ) { return std::begin( arr ); }
 		constexpr forceinline const_iterator begin( ) const { return std::begin( arr ); }
@@ -64,6 +62,15 @@ namespace QCCore
 		constexpr forceinline const_reverse_iterator rend( ) const { return std::rend( arr ); }
 		constexpr forceinline const_reverse_iterator crbegin( ) const { return std::crbegin( arr ); }
 		constexpr forceinline const_reverse_iterator crend( ) const { return std::crend( arr ); }
+
+		constexpr bool Equals( const Extent& other )
+		{
+			return 
+				(arr[ 0 ] == other.arr[ 0 ]) && 
+				(arr[ 1 ] == other.arr[ 1 ]) && 
+				(arr[ 2 ] == other.arr[ 2 ]) && 
+				(arr[ 3 ] == other.arr[ 3 ]);
+		}
 	};
 
 	static forceinline Extent Ext( ULong a = 0 , ULong b = 0 , ULong c = 0 , ULong d = 0 ) { return Extent( a , b , c , d ); }
@@ -118,10 +125,8 @@ namespace QCCore
 
 		forceinline ULong Length( ) const noexcept { return array_.size( ); }
 		forceinline Extent Size( ) const noexcept { return array_.size( ); }
-		forceinline ULong Count( ) const noexcept { return array_.size( ); }
 		forceinline ULong size( ) const noexcept { return array_.size( ); }
 		forceinline Extent length( ) const noexcept { return array_.size( ); }
-		forceinline ULong count( ) const noexcept { return array_.size( ); }
 
 		forceinline array_t& __NATIVE( ) noexcept { return array_; }
 		forceinline const array_t& __NATIVE( ) const noexcept { return array_; }
@@ -195,8 +200,8 @@ namespace QCCore
 		{
 			return
 				ext[ 2 ] +
-				ext[ 1 ] * ext[ 2 ] * +
-				ext[ 0 ] * ext[ 1 ] * ext[ 2 ];
+				ext[ 1 ] * sz[ 2 ] * +
+				ext[ 0 ] * sz[ 1 ] * sz[ 2 ];
 		}
 	public:
 		typedef typename array_t::value_type value_type;

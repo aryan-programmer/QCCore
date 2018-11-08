@@ -1,14 +1,15 @@
-﻿using System.Text;
-using QCCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using static System.Console;
 
-internal class Program
+internal sealed class Program
 {
-	private const ulong insts = 25;
+	private const ulong insts = 15;
 
 	private static void Main( string[ ] args )
 	{
-		Write( "\n" );
+		CPPPrint_Tuple_ClassTemplates();
+		Write( "" );
 	}
 
 	private static string GetLoopedString( string fmt , ulong start , ulong end )
@@ -670,6 +671,23 @@ struct " );
 				GetLoopedString( ",T{0}" , 2 , nIter ) +
 				">";
 			Write( $@"public static void _DECOMPOSE_QS{template}(QStruct{template} tup" );
+			Write( GetLoopedString( ", out T{0} Item{0}" , 1 , nIter ) );
+			Write( @")
+{" );
+			Write( GetLoopedString( @"
+	Item{0} = tup.Item{0};" , 1 , nIter ) );
+			Write( @"
+}
+
+" );
+		}
+		for ( ulong nIter = 1; nIter <= insts; nIter++ )
+		{
+			string template =
+				"<T1" +
+				GetLoopedString( ",T{0}" , 2 , nIter ) +
+				">";
+			Write( $@"public static void _DECOMPOSE_QS_NNV{template}(QStruct{template} tup" );
 			Write( GetLoopedString( ", out T{0} Item{0}" , 1 , nIter ) );
 			Write( @")
 {" );

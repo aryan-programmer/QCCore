@@ -48,7 +48,6 @@
     <Compile Include="ConstN.cs" />
     <Compile Include="FPipable.cs" />
     <Compile Include="Function.cs" />
-    <Compile Include="IDynArray.cs" />
     <Compile Include="IGCPtr.cs" />
     <Compile Include="IWeakPtr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

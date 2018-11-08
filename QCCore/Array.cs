@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace QCCore
 {
@@ -20,9 +21,13 @@ namespace QCCore
 		TNative __NATIVE( );
 	}
 
-	public struct Extent : IEnumerable<ulong>
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+#pragma warning disable CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
+	public struct Extent : IEnumerable<ulong>, IEquatable<Extent>
+#pragma warning restore CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 	{
-		public ulong[ ] arr;
+		private readonly ulong[ ] arr;
 
 		public ulong this[ ulong idx ]
 		{
@@ -45,8 +50,17 @@ namespace QCCore
 		public static implicit operator Extent( QStruct<ulong , ulong , ulong , ulong> tup ) => new Extent( tup.Item1 , tup.Item2 , tup.Item3 , tup.Item4 );
 		public static implicit operator QStruct<ulong , ulong , ulong , ulong>( Extent tup ) => new QStruct<ulong , ulong , ulong , ulong>( tup[ 0 ] , tup[ 1 ] , tup[ 2 ] , tup[ 3 ] );
 
+		public static bool operator ==( Extent extent1 , Extent extent2 ) => extent1.Equals( extent2 );
+		public static bool operator !=( Extent extent1 , Extent extent2 ) => !( extent1 == extent2 );
+
 		public IEnumerator<ulong> GetEnumerator( ) => ( ( IEnumerable<ulong> ) arr ).GetEnumerator();
 		IEnumerator IEnumerable.GetEnumerator( ) => arr.GetEnumerator();
+		public override bool Equals( object obj ) => obj is Extent && Equals( ( Extent ) obj );
+		public bool Equals( Extent other ) =>
+			arr[ 0 ] == other.arr[ 0 ] &&
+			arr[ 1 ] == other.arr[ 1 ] &&
+			arr[ 2 ] == other.arr[ 2 ] &&
+			arr[ 3 ] == other.arr[ 3 ];
 	}
 
 	public static partial class QCCoreCls
@@ -76,7 +90,6 @@ namespace QCCore
 			set => array_[ extents[ 0 ] ] = value;
 		}
 		public T At( Extent extents ) => array_[ extents[ 0 ] ];
-		public T at( Extent extents ) => array_[ extents[ 0 ] ];
 
 		public Array1<T> Set( params T[ ] ts )
 		{
@@ -87,16 +100,13 @@ namespace QCCore
 		public ulong Length( ) => ( ulong ) array_.Length;
 		public Extent Size( ) => ( ulong ) array_.Length;
 		public ulong Count( ) => ( ulong ) array_.Length;
-		public ulong length( ) => ( ulong ) array_.Length;
-		public Extent size( ) => ( ulong ) array_.Length;
-		public ulong count( ) => ( ulong ) array_.Length;
 
 		public T[ ] __NATIVE( ) => array_;
 	}
 
 	public class Array2<T> : IEnumerable<T>, IHasNative<T[ ]>
 	{
-		private T[ ] array_;
+		private readonly T[ ] array_;
 		private readonly Extent sz;
 
 		private ulong CnvtExtntTIdx( Extent ext ) =>
@@ -122,23 +132,21 @@ namespace QCCore
 		}
 
 		public T At( Extent ext ) => array_[ CnvtExtntTIdx( ext ) ];
-		public T at( Extent ext ) => array_[ CnvtExtntTIdx( ext ) ];
 
 		public Extent Size( ) => new Extent( sz );
-		public Extent size( ) => new Extent( sz );
 
 		public T[ ] __NATIVE( ) => array_;
 	}
 
 	public class Array3<T> : IEnumerable<T>, IHasNative<T[ ]>
 	{
-		private T[ ] array_;
+		private readonly T[ ] array_;
 		private readonly Extent sz;
 
 		private ulong CnvtExtntTIdx( Extent ext ) =>
 			ext[ 2 ] +
-			ext[ 1 ] * ext[ 2 ] * +
-			ext[ 0 ] * ext[ 1 ] * ext[ 2 ];
+			ext[ 1 ] * sz[ 2 ] * +
+			ext[ 0 ] * sz[ 1 ] * sz[ 2 ];
 
 		public IEnumerator<T> GetEnumerator( ) => ( ( IEnumerable<T> ) array_ ).GetEnumerator();
 
@@ -159,17 +167,15 @@ namespace QCCore
 		}
 
 		public T At( Extent ext ) => array_[ CnvtExtntTIdx( ext ) ];
-		public T at( Extent ext ) => array_[ CnvtExtntTIdx( ext ) ];
 
 		public Extent Size( ) => new Extent( sz );
-		public Extent size( ) => new Extent( sz );
 
 		public T[ ] __NATIVE( ) => array_;
 	}
 
 	public class Array4<T> : IEnumerable<T>, IHasNative<T[ ]>
 	{
-		private T[ ] array_;
+		private readonly T[ ] array_;
 		private readonly Extent sz;
 
 		private ulong CnvtExtntTIdx( Extent ext ) =>
@@ -197,18 +203,16 @@ namespace QCCore
 		}
 
 		public T At( Extent ext ) => array_[ CnvtExtntTIdx( ext ) ];
-		public T at( Extent ext ) => array_[ CnvtExtntTIdx( ext ) ];
 
 		public Extent Size( ) => new Extent( sz );
-		public Extent size( ) => new Extent( sz );
 
 		public T[ ] __NATIVE( ) => array_;
 	}
 
-	public class DynArray<T> : List<T>, IDynArray<T>
+	public class DynArray<T> : List<T>
 	{
 		public DynArray( IEnumerable<T> coll ) : base( coll ) { }
-		public DynArray( int len ) : base(len) { }
+		public DynArray( int len ) : base( len ) { }
 		public DynArray( ) : base() { }
 
 		public T this[ ulong index ] { get => this[ ( int ) index ]; set => this[ ( int ) index ] = value; }
@@ -224,7 +228,7 @@ namespace QCCore
 		public new void Capacity( int size ) => base.Capacity = size;
 		public new T Find( Predicate<T> match )
 		{
-			var idx = FindIndex( match );
+			int idx = FindIndex( match );
 			if ( idx == -1 ) throw new ValueNotFoundException( "ValueNotFoundException" );
 			return this[ idx ];
 		}
