@@ -2,7 +2,7 @@
 {
 	using System;
 
-	public static partial class MainCls
+	public static partial class MathCls
 	{
 		public const double Pi = 3.14159265358979323846;
 		public const double Tau = 6.283185307179586;
@@ -50,7 +50,6 @@
 
 		#region Min
 		public static int Min( int val1 , int val2 ) => Math.Min( val1 , val2 );
-		public static decimal Min( decimal val1 , decimal val2 ) => Math.Min( val1 , val2 );
 		public static double Min( double val1 , double val2 ) => Math.Min( val1 , val2 );
 		public static float Min( float val1 , float val2 ) => Math.Min( val1 , val2 );
 		public static ulong Min( ulong val1 , ulong val2 ) => Math.Min( val1 , val2 );

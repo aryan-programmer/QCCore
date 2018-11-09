@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <NDepend AppName="QCCore" Platform="DotNet" FileWrittenByProductVersion="2018.2.1.9119">
   <OutputDir KeepXmlFiles="False">E:\C++ Projects\Quick C\QCCore\NDependOut</OutputDir>
   <Assemblies>
@@ -79,7 +79,8 @@
       <High2Critical_SeverityThreshold>72000000000</High2Critical_SeverityThreshold>
       <Critical2Blocker_SeverityThreshold>360000000000</Critical2Blocker_SeverityThreshold>
     </DebtSettings>
-  </ProjectDebtSettings><Queries>
+  </ProjectDebtSettings>
+  <Queries>
     <Group Name="Quality Gates" Active="True" ShownInReport="True">
       <Query Active="True" DisplayList="True" DisplayStat="True" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Quality Gates Evolution</Name>
 from qg in QualityGates
@@ -798,7 +799,9 @@ select new {
 warnif count > 0 from t in JustMyCode.Types 
 
   // Optimization: Fast discard of non-relevant types 
-  where t.Methods.Count() > 20 && !(t.FullName.Contains("QStruct"))
+  where t.Methods.Count() > 20 && 
+  !(t.FullName.Contains("QStruct")) &&
+  !t.Name.Contains("Main")
 
   // Don't match these methods
   let methods = t.Methods.Where(
@@ -1050,14 +1053,16 @@ select new {
       <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Avoid methods with too many overloads</Name>
 // <Id>ND1005:AvoidMethodsWithTooManyOverloads</Id>
 warnif count > 0 
-let max = 6
+let max = 10
 let lookup = JustMyCode.Methods.Where(m =>
-   m.NbOverloads >= max && 
+   m.NbOverloads > max && 
   !m.IsOperator && // Don't report operator overload
 
    // Don't match overloads due tu the visitor pattern, based on a naming convention.
   !m.SimpleName.ToLower().StartsWithAny("visit", "dispatch") &&
-  !(m.FullName.Contains("QStruct"))
+  !(m.FullName.Contains("QStruct")) && 
+  !(m.FullName.Contains("Pipable")) &&
+  !m.FullName.Contains("Math")
 ).ToLookup(m => m.ParentType.FullName + "."+ m.SimpleName)
 
 from @group in lookup
@@ -1303,7 +1308,10 @@ warnif count > 0 from t in JustMyCode.Types where
 t.NbLinesOfCode > 10 &&
 
 // Optimization: Fast discard of non-relevant types 
-(t.Fields.Count() > 20 || t.Methods.Count() > 20)
+(t.Fields.Count() > 20 || t.Methods.Count() > 20) && 
+!(t.Name.Contains("Main"))&& 
+!(t.Name.Contains("Math"))
+
       
 // Count instance fields and non-constant static fields
 let fields = t.Fields.Where(f => 
@@ -1468,6 +1476,10 @@ warnif count > 0 from m in JustMyCode.Methods where
   // Don't match async methods here to avoid 
   // false positives because of special compiler tricks.
   !m.IsAsync &&
+  !m.Name.Contains("Pipable") && 
+  !m.Name.Contains("_DECOMPOSE") && 
+  !m.Name.Contains("QStruct") &&
+  !m.ParentType.Name.Contains("Math") &&
  
 // Low Quality methods// Metrics' definitions
 (  m.NbLinesOfCode > 30 ||          // https://www.ndepend.com/docs/code-metrics#NbLinesOfCode
@@ -2363,7 +2375,7 @@ select new {
 // By default issues of this rule have a **Low** severity
 // because they reflect more an advice than a problem.
 //</HowToFix>]]></Query>
-      <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Non-static classes should be instantiated or turned to static</Name>
+      <Query Active="False" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Non-static classes should be instantiated or turned to static</Name>
 // <Id>ND1207:NonStaticClassesShouldBeInstantiatedOrTurnedToStatic</Id>
 warnif count > 0
 
@@ -2479,7 +2491,8 @@ let methodsThatCanBeMadeStatic =
    // not using the this reference and also, not using
    // any of its class or base classes instance fields or instance methods.
    where !m.IsAbstract && !m.IsVirtual &&
-         !m.AccessThis && !m.IsExplicitInterfaceImpl &&
+         !m.AccessThis && !m.IsExplicitInterfaceImpl && 
+         !t.Name.Contains("Extent") &&
          !m.IsProtected && // Protected method access doesn't match well with static methods
 
          // Don't warn about not yet implemented methods.
@@ -4205,7 +4218,7 @@ select new {
 // http://www.kenneth-truyers.net/2013/05/12/the-n-layer-myth-and-basic-dependency-injection/
 //</HowToFix>
 ]]></Query>
-      <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Assemblies with poor cohesion (RelationalCohesion)</Name>
+      <Query Active="False" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Assemblies with poor cohesion (RelationalCohesion)</Name>
 // <Id>ND1405:AssembliesWithPoorRelationalCohesion</Id>
 
 warnif count > 0 from a in Application.Assemblies 
@@ -4276,7 +4289,7 @@ select new {
 // **Code Smells** default rules will necessarily increase 
 // the *Relational Cohesion* scores.
 //</HowToFix>]]></Query>
-      <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Namespaces with poor cohesion (RelationalCohesion)</Name>
+      <Query Active="False" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Namespaces with poor cohesion (RelationalCohesion)</Name>
 // <Id>ND1406:NamespacesWithPoorRelationalCohesion</Id>
 
 warnif count > 0 from n in Application.Namespaces 
@@ -6276,7 +6289,10 @@ where f.IsLiteral &&
       f.IsPubliclyVisible && 
      !f.IsEnumValue &&
      !(f.FullName.Contains("Max")) &&
-     !(f.FullName.Contains("Min"))
+     !(f.FullName.Contains("Min")) &&
+     !f.ParentType.Name.Contains("MainCls") &&
+     !f.ParentType.Name.Contains("MathCls") 
+
 select new {
    f,
 
@@ -6320,7 +6336,8 @@ warnif count > 0 from f in JustMyCode.Fields where
  !f.IsEnumValue &&
  !f.HasAttribute("System.Xml.Serialization.XmlAttributeAttribute".AllowNoMatch()) &&
  !f.HasAttribute("System.Runtime.Serialization.DataMemberAttribute".AllowNoMatch()) &&
- !f.FullName.Contains("Struct")
+ !f.FullName.Contains("Struct") &&
+ !f.FullName.Contains("Wrap")
 
 // A non-private field assigned from outside its class,
 // usually leads to complicated field state management.
@@ -6995,6 +7012,7 @@ from f in JustMyCode.Fields where
    f.IsInitOnly && 
   !f.ParentType.IsPrivate &&
   !f.IsPrivate &&
+  !f.ParentType.Name.Contains("FPipable") &&
    f.FieldType != null &&
    f.FieldType.IsClass &&
   !f.FieldType.IsThirdParty &&
@@ -11825,4 +11843,5 @@ select new {
 //</HowToFix>]]></Query>
       </Group>
     </Group>
-  </Queries></NDepend>
+  </Queries>
+</NDepend>
