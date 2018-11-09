@@ -5,6 +5,7 @@
 	public static partial class MainCls
 	{
 		public const double Pi = 3.14159265358979323846;
+		public const double Tau = 6.283185307179586;
 		public const double PiOver2 = 1.57079632679489661923;
 		public const double PiOver4 = 0.785398163397448309616;
 		public const double OneOverPi = 0.318309886183790671538;

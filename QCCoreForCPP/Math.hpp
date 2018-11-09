@@ -6,6 +6,8 @@
 namespace QCCore
 {
 	static constexpr Double Pi = 3.14159265358979323846;
+	static constexpr Double Tau = 6.283185307179586;
+	static constexpr Double SqrtPi = 1.77245385091;
 	static constexpr Double PiOver2 = 1.57079632679489661923;
 	static constexpr Double PiOver4 = 0.785398163397448309616;
 	static constexpr Double OneOverPi = 0.318309886183790671538;
