@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using static System.Console;
+using QCCore;
 
 internal sealed class Program
 {
@@ -7,8 +8,7 @@ internal sealed class Program
 
 	private static void Main( string[ ] args )
 	{
-		byte a = 1, b = 1;
-		int c = a + b;
+		string s = "Hello, {name}.";
 		Write( "" );
 	}
 

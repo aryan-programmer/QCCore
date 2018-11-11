@@ -65,78 +65,86 @@ namespace QCCore
 
 		constexpr bool Equals( const Extent& other )
 		{
-			return 
-				(arr[ 0 ] == other.arr[ 0 ]) && 
-				(arr[ 1 ] == other.arr[ 1 ]) && 
-				(arr[ 2 ] == other.arr[ 2 ]) && 
-				(arr[ 3 ] == other.arr[ 3 ]);
+			return
+				( arr[ 0 ] == other.arr[ 0 ] ) &&
+				( arr[ 1 ] == other.arr[ 1 ] ) &&
+				( arr[ 2 ] == other.arr[ 2 ] ) &&
+				( arr[ 3 ] == other.arr[ 3 ] );
 		}
 	};
 
 	static forceinline Extent Ext( ULong a = 0 , ULong b = 0 , ULong c = 0 , ULong d = 0 ) { return Extent( a , b , c , d ); }
 
 	template<typename T>
-	class Array1
+	class Array : public std::vector<T>
 	{
-		using array_t = std::vector<T>;
-		array_t array_;
+		using base_t = std::vector<T>;
+
+		forceinline base_t& base( ) { return *this; }
+		forceinline const base_t& base( ) const { return *this; }
 	public:
-		typedef typename array_t::value_type value_type;
-		typedef typename array_t::reference reference;
-		typedef typename array_t::const_reference const_reference;
-		typedef typename array_t::iterator iterator;
-		typedef typename array_t::const_iterator const_iterator;
-		typedef typename array_t::reverse_iterator reverse_iterator;
-		typedef typename array_t::const_reverse_iterator const_reverse_iterator;
-		typedef typename array_t::size_type size_type;
-		typedef typename array_t::difference_type difference_type;
+		typedef typename base_t::value_type value_type;
+		typedef typename base_t::reference reference;
+		typedef typename base_t::const_reference const_reference;
+		typedef typename base_t::iterator iterator;
+		typedef typename base_t::const_iterator const_iterator;
+		typedef typename base_t::reverse_iterator reverse_iterator;
+		typedef typename base_t::const_reverse_iterator const_reverse_iterator;
+		typedef typename base_t::size_type size_type;
+		typedef typename base_t::difference_type difference_type;
 
 	#pragma region GetEnumerator
-		forceinline iterator begin( ) { return		array_.begin( ); }
-		forceinline const_iterator begin( ) const { return  array_.begin( ); }
-		forceinline iterator end( ) { return		 array_.end( ); }
-		forceinline const_iterator end( ) const { return array_.end( ); }
-		forceinline const_iterator cbegin( ) const { return  array_.begin( ); }
-		forceinline const_iterator cend( ) const { return array_.end( ); }
+		forceinline iterator begin( ) { return		base( ).begin( ); }
+		forceinline const_iterator begin( ) const { return  base( ).begin( ); }
+		forceinline iterator end( ) { return		 base( ).end( ); }
+		forceinline const_iterator end( ) const { return base( ).end( ); }
+		forceinline const_iterator cbegin( ) const { return  base( ).begin( ); }
+		forceinline const_iterator cend( ) const { return base( ).end( ); }
 
-		forceinline reverse_iterator rbegin( ) { return array_.rbegin( ); }
-		forceinline const_reverse_iterator rbegin( ) const { return array_.rbegin( ); }
-		forceinline reverse_iterator rend( ) { return array_.rend( ); }
-		forceinline const_reverse_iterator rend( ) const { return array_.rend( ); }
-		forceinline const_reverse_iterator crbegin( ) const { return array_.rbegin( ); }
-		forceinline const_reverse_iterator crend( ) const { return array_.rend( ); }
+		forceinline reverse_iterator rbegin( ) { return base( ).rbegin( ); }
+		forceinline const_reverse_iterator rbegin( ) const { return base( ).rbegin( ); }
+		forceinline reverse_iterator rend( ) { return base( ).rend( ); }
+		forceinline const_reverse_iterator rend( ) const { return base( ).rend( ); }
+		forceinline const_reverse_iterator crbegin( ) const { return base( ).rbegin( ); }
+		forceinline const_reverse_iterator crend( ) const { return base( ).rend( ); }
 	#pragma endregion
 
-		forceinline Array1( ) :array_ {} { }
-		forceinline Array1( Extent extents ) : array_( extents[ 0 ] ) { }
+		template<typename Iter>
+		forceinline Array( Iter beg , Iter end ) :base_t( beg , end ) { }
+		forceinline Array( ) : base_t {} { }
+		forceinline Array( Extent extents ) : base_t( extents[ 0 ] ) { }
 
-		forceinline T& operator[]( const Extent& extents ) { return array_[ extents[ 0 ] ]; }
-		forceinline const T& operator[]( const Extent& extents ) const { return array_[ extents[ 0 ] ]; }
-		forceinline T& At( const Extent& extents ) { return array_.at( extents[ 0 ] ); }
-		forceinline const T& At( const Extent& extents ) const { return array_.at( extents[ 0 ] ); }
-		forceinline T& at( const Extent& extents ) { return array_.at( extents[ 0 ] ); }
-		forceinline const T& at( const Extent& extents ) const { return array_.at( extents[ 0 ] ); }
+		forceinline T& operator[]( const Extent& extents ) { return base( )[ extents[ 0 ] ]; }
+		forceinline const T& operator[]( const Extent& extents ) const { return base( )[ extents[ 0 ] ]; }
+		forceinline T& At( const Extent& extents ) { return base( ).at( extents[ 0 ] ); }
+		forceinline const T& At( const Extent& extents ) const { return base( ).at( extents[ 0 ] ); }
+		forceinline T& at( const Extent& extents ) { return base( ).at( extents[ 0 ] ); }
+		forceinline const T& at( const Extent& extents ) const { return base( ).at( extents[ 0 ] ); }
 
-		template<typename... Args> inline Array1 Set( Args&&... args )
+		template<typename... Args> inline Array Set( Args&&... args )
 		{
-			array_ = std::vector<T> { std::forward<Args>( args )... };
+			base( ) = std::vector<T> { std::forward<Args>( args )... };
 			return *this;
 		}
 
-		forceinline ULong Length( ) const noexcept { return array_.size( ); }
-		forceinline Extent Size( ) const noexcept { return array_.size( ); }
-		forceinline ULong size( ) const noexcept { return array_.size( ); }
-		forceinline Extent length( ) const noexcept { return array_.size( ); }
+		forceinline ULong Length( ) const noexcept { return base( ).size( ); }
+		forceinline Extent Size( ) const noexcept { return base( ).size( ); }
+		forceinline ULong size( ) const noexcept { return base( ).size( ); }
+		forceinline Extent length( ) const noexcept { return base( ).size( ); }
 
-		forceinline array_t& __NATIVE( ) noexcept { return array_; }
-		forceinline const array_t& __NATIVE( ) const noexcept { return array_; }
+		forceinline base_t& __NATIVE( ) noexcept { return base( ); }
+		forceinline const base_t& __NATIVE( ) const noexcept { return base( ); }
+
+		forceinline void swap( Array<T>& rhs ) { base( ).swap( rhs.base( ) ); }
 	};
 
 	template<typename T>
-	class Array2
+	class Array2 : public std::vector<T>
 	{
-		using array_t = std::vector<T>;
-		array_t array_;
+		using base_t = std::vector<T>;
+
+		forceinline base_t& base( ) { return *this; }
+		const forceinline base_t& base( ) const { return *this; }
 		Extent sz;
 
 		inline ULong cnvtExtntTIdx( const Extent& ext ) const noexcept
@@ -146,54 +154,58 @@ namespace QCCore
 				ext[ 0 ] * ext[ 1 ];
 		}
 	public:
-		typedef typename array_t::value_type value_type;
-		typedef typename array_t::reference reference;
-		typedef typename array_t::const_reference const_reference;
-		typedef typename array_t::iterator iterator;
-		typedef typename array_t::const_iterator const_iterator;
-		typedef typename array_t::reverse_iterator reverse_iterator;
-		typedef typename array_t::const_reverse_iterator const_reverse_iterator;
-		typedef typename array_t::size_type size_type;
-		typedef typename array_t::difference_type difference_type;
+		typedef typename base_t::value_type value_type;
+		typedef typename base_t::reference reference;
+		typedef typename base_t::const_reference const_reference;
+		typedef typename base_t::iterator iterator;
+		typedef typename base_t::const_iterator const_iterator;
+		typedef typename base_t::reverse_iterator reverse_iterator;
+		typedef typename base_t::const_reverse_iterator const_reverse_iterator;
+		typedef typename base_t::size_type size_type;
+		typedef typename base_t::difference_type difference_type;
 
 	#pragma region GetEnumerator
-		forceinline iterator begin( ) { return		array_.begin( ); }
-		forceinline const_iterator begin( ) const { return  array_.begin( ); }
-		forceinline iterator end( ) { return		 array_.end( ); }
-		forceinline const_iterator end( ) const { return array_.end( ); }
-		forceinline const_iterator cbegin( ) const { return  array_.begin( ); }
-		forceinline const_iterator cend( ) const { return array_.end( ); }
+		forceinline iterator begin( ) { return		base( ).begin( ); }
+		forceinline const_iterator begin( ) const { return  base( ).begin( ); }
+		forceinline iterator end( ) { return		 base( ).end( ); }
+		forceinline const_iterator end( ) const { return base( ).end( ); }
+		forceinline const_iterator cbegin( ) const { return  base( ).begin( ); }
+		forceinline const_iterator cend( ) const { return base( ).end( ); }
 
-		forceinline reverse_iterator rbegin( ) { return array_.rbegin( ); }
-		forceinline const_reverse_iterator rbegin( ) const { return array_.rbegin( ); }
-		forceinline reverse_iterator rend( ) { return array_.rend( ); }
-		forceinline const_reverse_iterator rend( ) const { return array_.rend( ); }
-		forceinline const_reverse_iterator crbegin( ) const { return array_.rbegin( ); }
-		forceinline const_reverse_iterator crend( ) const { return array_.rend( ); }
+		forceinline reverse_iterator rbegin( ) { return base( ).rbegin( ); }
+		forceinline const_reverse_iterator rbegin( ) const { return base( ).rbegin( ); }
+		forceinline reverse_iterator rend( ) { return base( ).rend( ); }
+		forceinline const_reverse_iterator rend( ) const { return base( ).rend( ); }
+		forceinline const_reverse_iterator crbegin( ) const { return base( ).rbegin( ); }
+		forceinline const_reverse_iterator crend( ) const { return base( ).rend( ); }
 	#pragma endregion
 
-		forceinline Array2( ) :array_ {} , sz { 0,0,0,0 } { }
-		forceinline Array2( Extent extents ) : array_( extents[ 0 ] * extents[ 1 ] ) , sz { extents } { }
+		forceinline Array2( ) :base_t {} , sz { 0,0,0,0 } { }
+		forceinline Array2( Extent extents ) : base_t( extents[ 0 ] * extents[ 1 ] ) , sz { extents } { }
 
-		forceinline T& operator[]( const Extent& extents ) { return array_[ cnvtExtntTIdx( extents ) ]; }
-		forceinline const T& operator[]( const Extent& extents ) const { return array_[ cnvtExtntTIdx( extents ) ]; }
-		forceinline T& At( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		forceinline const T& At( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
-		forceinline T& at( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		forceinline const T& at( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
+		forceinline T& operator[]( const Extent& extents ) { return base( )[ cnvtExtntTIdx( extents ) ]; }
+		forceinline const T& operator[]( const Extent& extents ) const { return base( )[ cnvtExtntTIdx( extents ) ]; }
+		forceinline T& At( const Extent& extents ) { return base( ).at( cnvtExtntTIdx( extents ) ); }
+		forceinline const T& At( const Extent& extents ) const { return base( ).at( cnvtExtntTIdx( extents ) ); }
+		forceinline T& at( const Extent& extents ) { return base( ).at( cnvtExtntTIdx( extents ) ); }
+		forceinline const T& at( const Extent& extents ) const { return base( ).at( cnvtExtntTIdx( extents ) ); }
 
 		forceinline Extent Size( ) const noexcept { return sz; }
 		forceinline Extent size( ) const noexcept { return sz; }
 
-		forceinline array_t& __NATIVE( ) noexcept { return array_; }
-		forceinline const array_t& __NATIVE( ) const noexcept { return array_; }
+		forceinline base_t& __NATIVE( ) noexcept { return base( ); }
+		forceinline const base_t& __NATIVE( ) const noexcept { return base( ); }
+
+		forceinline void swap( Array<T>& rhs ) { base( ).swap( rhs.base( ) ); }
 	};
 
 	template<typename T>
-	class Array3
+	class Array3 : public std::vector<T>
 	{
-		using array_t = std::vector<T>;
-		array_t array_;
+		using base_t = std::vector<T>;
+
+		forceinline base_t& base( ) { return *this; }
+		const forceinline base_t& base( ) const { return *this; }
 		Extent sz;
 
 		inline ULong cnvtExtntTIdx( const Extent& ext ) const noexcept
@@ -204,54 +216,58 @@ namespace QCCore
 				ext[ 0 ] * sz[ 1 ] * sz[ 2 ];
 		}
 	public:
-		typedef typename array_t::value_type value_type;
-		typedef typename array_t::reference reference;
-		typedef typename array_t::const_reference const_reference;
-		typedef typename array_t::iterator iterator;
-		typedef typename array_t::const_iterator const_iterator;
-		typedef typename array_t::reverse_iterator reverse_iterator;
-		typedef typename array_t::const_reverse_iterator const_reverse_iterator;
-		typedef typename array_t::size_type size_type;
-		typedef typename array_t::difference_type difference_type;
+		typedef typename base_t::value_type value_type;
+		typedef typename base_t::reference reference;
+		typedef typename base_t::const_reference const_reference;
+		typedef typename base_t::iterator iterator;
+		typedef typename base_t::const_iterator const_iterator;
+		typedef typename base_t::reverse_iterator reverse_iterator;
+		typedef typename base_t::const_reverse_iterator const_reverse_iterator;
+		typedef typename base_t::size_type size_type;
+		typedef typename base_t::difference_type difference_type;
 
 	#pragma region GetEnumerator
-		forceinline iterator begin( ) { return		array_.begin( ); }
-		forceinline const_iterator begin( ) const { return  array_.begin( ); }
-		forceinline iterator end( ) { return		 array_.end( ); }
-		forceinline const_iterator end( ) const { return array_.end( ); }
-		forceinline const_iterator cbegin( ) const { return  array_.begin( ); }
-		forceinline const_iterator cend( ) const { return array_.end( ); }
+		forceinline iterator begin( ) { return		base( ).begin( ); }
+		forceinline const_iterator begin( ) const { return  base( ).begin( ); }
+		forceinline iterator end( ) { return		 base( ).end( ); }
+		forceinline const_iterator end( ) const { return base( ).end( ); }
+		forceinline const_iterator cbegin( ) const { return  base( ).begin( ); }
+		forceinline const_iterator cend( ) const { return base( ).end( ); }
 
-		forceinline reverse_iterator rbegin( ) { return array_.rbegin( ); }
-		forceinline const_reverse_iterator rbegin( ) const { return array_.rbegin( ); }
-		forceinline reverse_iterator rend( ) { return array_.rend( ); }
-		forceinline const_reverse_iterator rend( ) const { return array_.rend( ); }
-		forceinline const_reverse_iterator crbegin( ) const { return array_.rbegin( ); }
-		forceinline const_reverse_iterator crend( ) const { return array_.rend( ); }
+		forceinline reverse_iterator rbegin( ) { return base( ).rbegin( ); }
+		forceinline const_reverse_iterator rbegin( ) const { return base( ).rbegin( ); }
+		forceinline reverse_iterator rend( ) { return base( ).rend( ); }
+		forceinline const_reverse_iterator rend( ) const { return base( ).rend( ); }
+		forceinline const_reverse_iterator crbegin( ) const { return base( ).rbegin( ); }
+		forceinline const_reverse_iterator crend( ) const { return base( ).rend( ); }
 	#pragma endregion
 
-		forceinline Array3( ) :array_ {} , sz { 0,0,0,0 } { }
-		forceinline Array3( Extent extents ) : array_( extents[ 0 ] * extents[ 1 ] * extents[ 2 ] ) , sz { extents } { }
+		forceinline Array3( ) :base_t {} , sz { 0,0,0,0 } { }
+		forceinline Array3( Extent extents ) : base_t( extents[ 0 ] * extents[ 1 ] * extents[ 2 ] ) , sz { extents } { }
 
-		forceinline T& operator[]( const Extent& extents ) { return array_[ cnvtExtntTIdx( extents ) ]; }
-		forceinline const T& operator[]( const Extent& extents ) const { return array_[ cnvtExtntTIdx( extents ) ]; }
-		forceinline T& At( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		forceinline const T& At( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
-		forceinline T& at( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		forceinline const T& at( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
+		forceinline T& operator[]( const Extent& extents ) { return base( )[ cnvtExtntTIdx( extents ) ]; }
+		forceinline const T& operator[]( const Extent& extents ) const { return base( )[ cnvtExtntTIdx( extents ) ]; }
+		forceinline T& At( const Extent& extents ) { return base( ).at( cnvtExtntTIdx( extents ) ); }
+		forceinline const T& At( const Extent& extents ) const { return base( ).at( cnvtExtntTIdx( extents ) ); }
+		forceinline T& at( const Extent& extents ) { return base( ).at( cnvtExtntTIdx( extents ) ); }
+		forceinline const T& at( const Extent& extents ) const { return base( ).at( cnvtExtntTIdx( extents ) ); }
 
 		forceinline Extent Size( ) const noexcept { return sz; }
 		forceinline Extent size( ) const noexcept { return sz; }
 
-		forceinline array_t& __NATIVE( ) noexcept { return array_; }
-		forceinline const array_t& __NATIVE( ) const noexcept { return array_; }
+		forceinline base_t& __NATIVE( ) noexcept { return base( ); }
+		forceinline const base_t& __NATIVE( ) const noexcept { return base( ); }
+
+		forceinline void swap( Array<T>& rhs ) { base( ).swap( rhs.base( ) ); }
 	};
 
 	template<typename T>
-	class Array4
+	class Array4 : public std::vector<T>
 	{
-		using array_t = std::vector<T>;
-		array_t array_;
+		using base_t = std::vector<T>;
+
+		forceinline base_t& base( ) { return *this; }
+		const forceinline base_t& base( ) const { return *this; }
 		Extent sz;
 
 		inline ULong cnvtExtntTIdx( const Extent& ext ) const noexcept
@@ -263,55 +279,57 @@ namespace QCCore
 				ext[ 0 ] * sz[ 1 ] * sz[ 2 ] * sz[ 3 ];
 		}
 	public:
-		typedef typename array_t::value_type value_type;
-		typedef typename array_t::reference reference;
-		typedef typename array_t::const_reference const_reference;
-		typedef typename array_t::iterator iterator;
-		typedef typename array_t::const_iterator const_iterator;
-		typedef typename array_t::reverse_iterator reverse_iterator;
-		typedef typename array_t::const_reverse_iterator const_reverse_iterator;
-		typedef typename array_t::size_type size_type;
-		typedef typename array_t::difference_type difference_type;
+		typedef typename base_t::value_type value_type;
+		typedef typename base_t::reference reference;
+		typedef typename base_t::const_reference const_reference;
+		typedef typename base_t::iterator iterator;
+		typedef typename base_t::const_iterator const_iterator;
+		typedef typename base_t::reverse_iterator reverse_iterator;
+		typedef typename base_t::const_reverse_iterator const_reverse_iterator;
+		typedef typename base_t::size_type size_type;
+		typedef typename base_t::difference_type difference_type;
 
 	#pragma region GetEnumerator
-		forceinline iterator begin( ) { return		array_.begin( ); }
-		forceinline const_iterator begin( ) const { return  array_.begin( ); }
-		forceinline iterator end( ) { return		 array_.end( ); }
-		forceinline const_iterator end( ) const { return array_.end( ); }
-		forceinline const_iterator cbegin( ) const { return  array_.begin( ); }
-		forceinline const_iterator cend( ) const { return array_.end( ); }
+		forceinline iterator begin( ) { return		base( ).begin( ); }
+		forceinline const_iterator begin( ) const { return  base( ).begin( ); }
+		forceinline iterator end( ) { return		 base( ).end( ); }
+		forceinline const_iterator end( ) const { return base( ).end( ); }
+		forceinline const_iterator cbegin( ) const { return  base( ).begin( ); }
+		forceinline const_iterator cend( ) const { return base( ).end( ); }
 
-		forceinline reverse_iterator rbegin( ) { return array_.rbegin( ); }
-		forceinline const_reverse_iterator rbegin( ) const { return array_.rbegin( ); }
-		forceinline reverse_iterator rend( ) { return array_.rend( ); }
-		forceinline const_reverse_iterator rend( ) const { return array_.rend( ); }
-		forceinline const_reverse_iterator crbegin( ) const { return array_.rbegin( ); }
-		forceinline const_reverse_iterator crend( ) const { return array_.rend( ); }
+		forceinline reverse_iterator rbegin( ) { return base( ).rbegin( ); }
+		forceinline const_reverse_iterator rbegin( ) const { return base( ).rbegin( ); }
+		forceinline reverse_iterator rend( ) { return base( ).rend( ); }
+		forceinline const_reverse_iterator rend( ) const { return base( ).rend( ); }
+		forceinline const_reverse_iterator crbegin( ) const { return base( ).rbegin( ); }
+		forceinline const_reverse_iterator crend( ) const { return base( ).rend( ); }
 	#pragma endregion
 
-		forceinline Array4( ) :array_ {} , sz { 0,0,0,0 } { }
-		forceinline Array4( Extent extents ) : array_( extents[ 0 ] * extents[ 1 ] * extents[ 2 ] * extents[ 3 ] ) , sz { extents } { }
+		forceinline Array4( ) :base_t {} , sz { 0,0,0,0 } { }
+		forceinline Array4( Extent extents ) : base_t( extents[ 0 ] * extents[ 1 ] * extents[ 2 ] * extents[ 3 ] ) , sz { extents } { }
 
-		forceinline T& operator[]( const Extent& extents ) { return array_[ cnvtExtntTIdx( extents ) ]; }
-		forceinline const T& operator[]( const Extent& extents ) const { return array_[ cnvtExtntTIdx( extents ) ]; }
-		forceinline T& At( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		forceinline const T& At( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
-		forceinline T& at( const Extent& extents ) { return array_.at( cnvtExtntTIdx( extents ) ); }
-		forceinline const T& at( const Extent& extents ) const { return array_.at( cnvtExtntTIdx( extents ) ); }
+		forceinline T& operator[]( const Extent& extents ) { return base( )[ cnvtExtntTIdx( extents ) ]; }
+		forceinline const T& operator[]( const Extent& extents ) const { return base( )[ cnvtExtntTIdx( extents ) ]; }
+		forceinline T& At( const Extent& extents ) { return base( ).at( cnvtExtntTIdx( extents ) ); }
+		forceinline const T& At( const Extent& extents ) const { return base( ).at( cnvtExtntTIdx( extents ) ); }
+		forceinline T& at( const Extent& extents ) { return base( ).at( cnvtExtntTIdx( extents ) ); }
+		forceinline const T& at( const Extent& extents ) const { return base( ).at( cnvtExtntTIdx( extents ) ); }
 
 		forceinline Extent Size( ) const noexcept { return sz; }
 		forceinline Extent size( ) const noexcept { return sz; }
 
-		forceinline array_t& __NATIVE( ) noexcept { return array_; }
-		forceinline const array_t& __NATIVE( ) const noexcept { return array_; }
+		forceinline base_t& __NATIVE( ) noexcept { return base( ); }
+		forceinline const base_t& __NATIVE( ) const noexcept { return base( ); }
+
+		forceinline void swap( Array<T>& rhs ) { base( ).swap( rhs.base( ) ); }
 	};
 
 	template<typename T>
 	class DynArray : public std::vector<T>
 	{
 		using base_t = std::vector<T>;
-		base_t& base( ) { return *this; }
-		const base_t& base( ) const { return *this; }
+		forceinline base_t& base( ) { return *this; }
+		const forceinline base_t& base( ) const { return *this; }
 	public:
 		typedef typename base_t::value_type value_type;
 		typedef typename base_t::reference reference;
@@ -517,5 +535,7 @@ namespace QCCore
 
 		forceinline base_t& __NATIVE( ) { return base( ); }
 		forceinline const base_t& __NATIVE( ) const { return base( ); }
+
+		forceinline void swap( Array<T>& rhs ) { base( ).swap( rhs.base( ) ); }
 	};
 }

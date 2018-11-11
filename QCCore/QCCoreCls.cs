@@ -63,5 +63,11 @@
 
 			return hash1 + ( hash2 * 1566083941 );
 		}
+
+		public static int Length( this string s ) => s.Length;
+		public static int Count( this string s ) => s.Length;
+		public static int Size( this string s ) => s.Length;
+
+		public static int Hash<T>( T v ) => v.GetHashCode();
 	}
 }

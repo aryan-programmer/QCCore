@@ -215,10 +215,6 @@ namespace QCCore
 	using ULong = uint64_t;
 	using Char = char;
 	using WChar = wchar_t;
-	using String = std::string;
-	using WString = std::wstring;
-	using StringRef = std::string_view;
-	using WStringRef = std::wstring_view;
 	using Bool = bool;
 	using Byte = std::byte;
 	using SByte = std::sbyte;
@@ -273,4 +269,5 @@ namespace QCCore
 	inline constexpr const SByte	SByteMax = ( SByte ) CHAR_MAX;
 #pragma endregion
 
+	template<typename T> forceinline size_t Hash( const T& val );
 }

@@ -1,4 +1,6 @@
 #pragma once
+#include "predef_and_include.hpp"
+#include "ConstN.hpp"
 
 namespace QCCore
 {
@@ -21,7 +23,7 @@ namespace QCCore
 		template<typename _T1>
 		constexpr QStruct( _T1&& v1 ) : Item1( std::forward<_T1>( v1 ) ) { }
 
-		size_t GetHashCode( ) const { return Hasher( )( Item1 ); }
+		size_t GetHashCode( ) const { return Hash( Item1 ); }
 
 		constexpr bool Equals( const self& rhs ) const { return AreEqualDTrue( Item1 , rhs.Item1 ); }
 
@@ -55,6 +57,7 @@ namespace QCCore
 		constexpr auto ForEachGetResult( TFunc func ) const
 		{ return MakeQStruct( func( Item1 ) ); }
 	};
+
 	template<typename T1 , typename T2>
 	struct QStruct<T1 , T2>
 	{
@@ -71,7 +74,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -137,7 +140,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -211,7 +214,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -293,7 +296,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) , Hasher( )( Item5 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) , Hash( Item5 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -383,7 +386,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) , Hasher( )( Item5 ) , Hasher( )( Item6 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) , Hash( Item5 ) , Hash( Item6 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -481,7 +484,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) , Hasher( )( Item5 ) , Hasher( )( Item6 ) , Hasher( )( Item7 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) , Hash( Item5 ) , Hash( Item6 ) , Hash( Item7 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -587,7 +590,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) , Hasher( )( Item5 ) , Hasher( )( Item6 ) , Hasher( )( Item7 ) , Hasher( )( Item8 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) , Hash( Item5 ) , Hash( Item6 ) , Hash( Item7 ) , Hash( Item8 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -701,7 +704,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) , Hasher( )( Item5 ) , Hasher( )( Item6 ) , Hasher( )( Item7 ) , Hasher( )( Item8 ) , Hasher( )( Item9 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) , Hash( Item5 ) , Hash( Item6 ) , Hash( Item7 ) , Hash( Item8 ) , Hash( Item9 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -823,7 +826,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) , Hasher( )( Item5 ) , Hasher( )( Item6 ) , Hasher( )( Item7 ) , Hasher( )( Item8 ) , Hasher( )( Item9 ) , Hasher( )( Item10 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) , Hash( Item5 ) , Hash( Item6 ) , Hash( Item7 ) , Hash( Item8 ) , Hash( Item9 ) , Hash( Item10 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -953,7 +956,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) , Hasher( )( Item5 ) , Hasher( )( Item6 ) , Hasher( )( Item7 ) , Hasher( )( Item8 ) , Hasher( )( Item9 ) , Hasher( )( Item10 ) , Hasher( )( Item11 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) , Hash( Item5 ) , Hash( Item6 ) , Hash( Item7 ) , Hash( Item8 ) , Hash( Item9 ) , Hash( Item10 ) , Hash( Item11 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -1091,7 +1094,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) , Hasher( )( Item5 ) , Hasher( )( Item6 ) , Hasher( )( Item7 ) , Hasher( )( Item8 ) , Hasher( )( Item9 ) , Hasher( )( Item10 ) , Hasher( )( Item11 ) , Hasher( )( Item12 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) , Hash( Item5 ) , Hash( Item6 ) , Hash( Item7 ) , Hash( Item8 ) , Hash( Item9 ) , Hash( Item10 ) , Hash( Item11 ) , Hash( Item12 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -1237,7 +1240,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) , Hasher( )( Item5 ) , Hasher( )( Item6 ) , Hasher( )( Item7 ) , Hasher( )( Item8 ) , Hasher( )( Item9 ) , Hasher( )( Item10 ) , Hasher( )( Item11 ) , Hasher( )( Item12 ) , Hasher( )( Item13 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) , Hash( Item5 ) , Hash( Item6 ) , Hash( Item7 ) , Hash( Item8 ) , Hash( Item9 ) , Hash( Item10 ) , Hash( Item11 ) , Hash( Item12 ) , Hash( Item13 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -1391,7 +1394,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) , Hasher( )( Item5 ) , Hasher( )( Item6 ) , Hasher( )( Item7 ) , Hasher( )( Item8 ) , Hasher( )( Item9 ) , Hasher( )( Item10 ) , Hasher( )( Item11 ) , Hasher( )( Item12 ) , Hasher( )( Item13 ) , Hasher( )( Item14 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) , Hash( Item5 ) , Hash( Item6 ) , Hash( Item7 ) , Hash( Item8 ) , Hash( Item9 ) , Hash( Item10 ) , Hash( Item11 ) , Hash( Item12 ) , Hash( Item13 ) , Hash( Item14 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const
@@ -1553,7 +1556,7 @@ namespace QCCore
 
 		size_t GetHashCode( ) const
 		{
-			return CombineHashCodes( Hasher( )( Item1 ) , Hasher( )( Item2 ) , Hasher( )( Item3 ) , Hasher( )( Item4 ) , Hasher( )( Item5 ) , Hasher( )( Item6 ) , Hasher( )( Item7 ) , Hasher( )( Item8 ) , Hasher( )( Item9 ) , Hasher( )( Item10 ) , Hasher( )( Item11 ) , Hasher( )( Item12 ) , Hasher( )( Item13 ) , Hasher( )( Item14 ) , Hasher( )( Item15 ) );
+			return CombineHashCodes( Hash( Item1 ) , Hash( Item2 ) , Hash( Item3 ) , Hash( Item4 ) , Hash( Item5 ) , Hash( Item6 ) , Hash( Item7 ) , Hash( Item8 ) , Hash( Item9 ) , Hash( Item10 ) , Hash( Item11 ) , Hash( Item12 ) , Hash( Item13 ) , Hash( Item14 ) , Hash( Item15 ) );
 		}
 
 		constexpr bool Equals( const self& rhs ) const

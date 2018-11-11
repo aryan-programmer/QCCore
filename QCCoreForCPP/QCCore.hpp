@@ -2,6 +2,7 @@
 
 #include "predef_and_include.hpp"
 #include <boost\type_traits\remove_reference.hpp>
+#include "String.hpp"
 
 namespace QCCore
 {
