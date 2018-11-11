@@ -68,7 +68,7 @@ namespace QCCore
 		public static Extent Ext( ulong a = 0 , ulong b = 0 , ulong c = 0 , ulong d = 0 ) => new Extent( a , b , c , d );
 	}
 
-	public class Array1<T> : IEnumerable<T>, IHasNative<T[ ]>
+	public class Array<T> : IEnumerable<T>, IHasNative<T[ ]>
 	{
 		private T[ ] array_;
 
@@ -76,13 +76,13 @@ namespace QCCore
 
 		IEnumerator IEnumerable.GetEnumerator( ) => array_.GetEnumerator();
 
-		private Array1( T[ ] array_ ) =>
+		private Array( T[ ] array_ ) =>
 			this.array_ = array_;
 
-		public Array1( Extent extents ) =>
+		public Array( Extent extents ) =>
 			array_ = new T[ extents[ 0 ] ];
 
-		public Array1( ) => array_ = null;
+		public Array( ) => array_ = null;
 
 		public T this[ Extent extents ]
 		{
@@ -91,7 +91,7 @@ namespace QCCore
 		}
 		public T At( Extent extents ) => array_[ extents[ 0 ] ];
 
-		public Array1<T> Set( params T[ ] ts )
+		public Array<T> Set( params T[ ] ts )
 		{
 			array_ = ( T[ ] ) ts.Clone();
 			return this;
