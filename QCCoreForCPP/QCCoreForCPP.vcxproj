@@ -183,6 +183,7 @@
     <ClInclude Include="predef_and_include.hpp" />
     <ClInclude Include="QCCore.hpp" />
     <ClInclude Include="QStruct.hpp" />
+    <ClInclude Include="Random64.hpp" />
     <ClInclude Include="String.hpp" />
   </ItemGroup>
   <ItemGroup>

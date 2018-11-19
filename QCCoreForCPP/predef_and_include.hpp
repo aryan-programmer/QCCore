@@ -270,4 +270,7 @@ namespace QCCore
 #pragma endregion
 
 	template<typename T> forceinline size_t Hash( const T& val );
+
+	template<typename TFunc> forceinline decltype(auto) Lambda( TFunc&& value )
+	{ return std::forward<TFunc>( value ); }
 }

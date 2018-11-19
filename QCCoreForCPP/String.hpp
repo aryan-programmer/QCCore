@@ -42,6 +42,7 @@ namespace QCCore
 		forceinline BasicString( const BasicStringRef<T>& v );
 		forceinline BasicString( const base_t& v ) :base_t( v ) { }
 		forceinline BasicString( base_t&& v ) : base_t( std::move( v ) ) { }
+		forceinline BasicString( ) : base_t( ) { }
 
 		template<typename Iter> BasicString( Iter beg , Iter end ) : base_t( beg , end ) { }
 		forceinline BasicString( const T* value ) : base_t( value ) { }
@@ -105,6 +106,7 @@ namespace QCCore
 		forceinline constexpr const_reverse_iterator crbegin( ) const { return std::crbegin( base( ) ); }
 		forceinline constexpr const_reverse_iterator crend( ) const { return std::crend( base( ) ); }
 
+		forceinline constexpr BasicStringRef(  ) : base_t(  ) { }
 		forceinline constexpr BasicStringRef( const T* value ) : base_t( value ) { }
 		forceinline constexpr BasicStringRef( const T* value , int startIndex , int length ) : base_t( value , startIndex , length ) { }
 
@@ -135,5 +137,5 @@ namespace QCCore
 	using WString = BasicString<wchar_t>;
 	using StringRef = BasicStringRef<char>;
 	using WStringRef = BasicStringRef<wchar_t>;
-	template<typename T> forceinline BasicString<T>::BasicString( const BasicStringRef<T>& v ) :base_t( v.base() ) { }
+	template<typename T> forceinline BasicString<T>::BasicString( const BasicStringRef<T>& v ) :base_t( v.base( ) ) { }
 }

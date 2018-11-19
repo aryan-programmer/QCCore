@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <NDepend AppName="QCCore" Platform="DotNet" FileWrittenByProductVersion="2018.2.1.9119">
   <OutputDir KeepXmlFiles="False">E:\C++ Projects\Quick C\QCCore\NDependOut</OutputDir>
   <Assemblies>
@@ -78,7 +78,8 @@
       <High2Critical_SeverityThreshold>72000000000</High2Critical_SeverityThreshold>
       <Critical2Blocker_SeverityThreshold>360000000000</Critical2Blocker_SeverityThreshold>
     </DebtSettings>
-  </ProjectDebtSettings><Queries>
+  </ProjectDebtSettings>
+  <Queries>
     <Group Name="Quality Gates" Active="True" ShownInReport="True">
       <Query Active="True" DisplayList="True" DisplayStat="True" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Quality Gates Evolution</Name>
 from qg in QualityGates
@@ -705,7 +706,7 @@ select new {
 warnif count > 0 from t in JustMyCode.Types where 
 
    // First filter on type to optimize 
-   t.NbLinesOfCode > 400 
+   t.NbLinesOfCode > 400 && t.SimpleName != "MainCls"
    // # IL Instructions is commented, because with LINQ syntax, a few lines of code can compile to hundreds of IL instructions.
    // || t.NbILInstructions > 3000
 
@@ -799,7 +800,8 @@ warnif count > 0 from t in JustMyCode.Types
   // Optimization: Fast discard of non-relevant types 
   where t.Methods.Count() > 20 && 
   !(t.FullName.Contains("QStruct")) &&
-  !t.Name.Contains("Main")
+  !t.Name.Contains("Main") &&
+  !t.Name.Contains("Math")
 
   // Don't match these methods
   let methods = t.Methods.Where(
@@ -1477,7 +1479,10 @@ warnif count > 0 from m in JustMyCode.Methods where
   !m.Name.Contains("Pipable") && 
   !m.Name.Contains("_DECOMPOSE") && 
   !m.Name.Contains("QStruct") &&
-  !m.ParentType.Name.Contains("Math") &&
+  m.SimpleName != ("Max") &&
+  m.SimpleName != ("Min") &&
+  m.SimpleName != ("Sign") &&
+  m.SimpleName != ("Lambda") &&
  
 // Low Quality methods// Metrics' definitions
 (  m.NbLinesOfCode > 30 ||          // https://www.ndepend.com/docs/code-metrics#NbLinesOfCode
@@ -1927,7 +1932,7 @@ from t in Application.Types where
    t.OlderVersion().IsImmutable &&
   !t.IsImmutable && 
   // Don't take account of immutable types transformed into static types (not deemed as immutable)
-  !t.IsStatic
+  !t.IsStatic && !t.IsInterface
 
 let culpritFields = t.InstanceFields.Where(f => !f.IsImmutable)
 select new {
@@ -2750,7 +2755,7 @@ select new {
    t, 
    t.TypesThatImplementMe,
    Debt = (10 + 3*t.TypesThatImplementMe.Count()).ToMinutes().ToDebt(),
-   Severity = t.TypesThatImplementMe.Any() ? Severity.Medium : Severity.Low
+   Severity = Severity.Medium
 }
 
 //<Description>
@@ -7395,7 +7400,7 @@ select new {
 // Once the rule has been adapted to your own naming convention
 // make sure to name all matched static fields adequately.
 //</HowToFix>]]></Query>
-      <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="True"><![CDATA[// <Name>Interface name should begin with a 'I'</Name>
+      <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Interface name should begin with a 'I'</Name>
 // <Id>ND2002:InterfaceNameShouldBeginWithAI</Id>
 
 // Don't query all Application.Types because some interface generated might not start with an 'I' 
@@ -7414,7 +7419,7 @@ where name[0] != 'I'
 select new { 
    t,
    Debt = 5.ToMinutes().ToDebt(),
-   Severity = Severity.High
+   Severity = Severity.Medium
 }
 
 //<Description>
@@ -7802,7 +7807,7 @@ select new {
 //<HowToFix>
 // To fix a violation of this rule, rename concerned types.
 //</HowToFix>]]></Query>
-      <Query Active="False" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Avoid prefixing type name with parent namespace name</Name>
+      <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Avoid prefixing type name with parent namespace name</Name>
 // <Id>ND2013:AvoidPrefixingTypeNameWithParentNamespaceName</Id>
 
 warnif count > 0
@@ -11841,4 +11846,5 @@ select new {
 //</HowToFix>]]></Query>
       </Group>
     </Group>
-  </Queries></NDepend>
+  </Queries>
+</NDepend>

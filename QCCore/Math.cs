@@ -2,7 +2,7 @@
 {
 	using System;
 
-	public static partial class MathCls
+	public static partial class MainCls
 	{
 		public const double Pi = 3.14159265358979323846;
 		public const double Tau = 6.283185307179586;

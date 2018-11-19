@@ -1,14 +1,14 @@
 ﻿using System.Text;
-using static System.Console;
 using QCCore;
+using static System.Console;
 
 internal sealed class Program
 {
 	private const ulong insts = 15;
+	private static readonly Random64 random = new Random64();
 
 	private static void Main( string[ ] args )
 	{
-		string s = "Hello, {name}.";
 		Write( "" );
 	}
 
@@ -697,6 +697,37 @@ struct " );
 }
 
 " );
+		}
+	}
+
+	private static void CSPrint_Lambda_FunctionTemplate( )
+	{
+		for ( ulong nIter = 1; nIter <= insts; nIter++ )
+		{
+			string template =
+				"<TReturn" +
+				GetLoopedString( ",T{0}" , 1 , nIter ) +
+				">";
+			Write( $"public static Function{template} Lambda{template}(Function{template} value) => value;\n" );
+		}
+		for ( ulong nIter = 1; nIter <= insts; nIter++ )
+		{
+			string template =
+				"<T1" +
+				GetLoopedString( ",T{0}" , 2 , nIter ) +
+				">";
+			Write( $"public static VoidFunction{template} Lambda{template}(VoidFunction{template} value) => value;\n" );
+		}
+	}
+
+
+	private static void CPPWrite_Ints( )
+	{
+		for ( int i = 1; i <= 200; i++ )
+		{
+			Write( System.BitConverter.ToUInt64( random.GetBytes( sizeof( ulong ) ).__NATIVE() , 0 ) );
+			Write( "ui64," );
+			if ( i % 4 == 0 ) WriteNewLine();
 		}
 	}
 

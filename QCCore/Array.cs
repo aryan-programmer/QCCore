@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace QCCore
 {
@@ -14,11 +13,6 @@ namespace QCCore
 		protected ValueNotFoundException(
 		  System.Runtime.Serialization.SerializationInfo info ,
 		  System.Runtime.Serialization.StreamingContext context ) : base( info , context ) { }
-	}
-
-	public interface IHasNative<out TNative>
-	{
-		TNative __NATIVE( );
 	}
 
 #pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
@@ -68,7 +62,7 @@ namespace QCCore
 		public static Extent Ext( ulong a = 0 , ulong b = 0 , ulong c = 0 , ulong d = 0 ) => new Extent( a , b , c , d );
 	}
 
-	public class Array<T> : IEnumerable<T>, IHasNative<T[ ]>
+	public class Array<T> : IEnumerable<T>
 	{
 		private T[ ] array_;
 
@@ -104,7 +98,7 @@ namespace QCCore
 		public T[ ] __NATIVE( ) => array_;
 	}
 
-	public class Array2<T> : IEnumerable<T>, IHasNative<T[ ]>
+	public class Array2<T> : IEnumerable<T>
 	{
 		private readonly T[ ] array_;
 		private readonly Extent sz;
@@ -138,7 +132,7 @@ namespace QCCore
 		public T[ ] __NATIVE( ) => array_;
 	}
 
-	public class Array3<T> : IEnumerable<T>, IHasNative<T[ ]>
+	public class Array3<T> : IEnumerable<T>
 	{
 		private readonly T[ ] array_;
 		private readonly Extent sz;
@@ -173,7 +167,7 @@ namespace QCCore
 		public T[ ] __NATIVE( ) => array_;
 	}
 
-	public class Array4<T> : IEnumerable<T>, IHasNative<T[ ]>
+	public class Array4<T> : IEnumerable<T>
 	{
 		private readonly T[ ] array_;
 		private readonly Extent sz;

@@ -63,7 +63,7 @@ namespace QCCore
 		template<typename T>
 		friend class WeakPtr;
 		template<typename T>
-		friend class EnableGCPtrFromMe;
+		friend class IEnableGCPtrFromMe;
 	};
 
 	template<typename T>
@@ -101,11 +101,11 @@ namespace QCCore
 		forceinline WeakPtr<T>& operator=( GCPtr<T>&& ptr ) { wptr = ptr.ptr; return *this; }
 
 		template<typename T>
-		friend class EnableGCPtrFromMe;
+		friend class IEnableGCPtrFromMe;
 	};
 
 	template<typename T>
-	class EnableGCPtrFromMe : public std::enable_shared_from_this<T>
+	class IEnableGCPtrFromMe : public std::enable_shared_from_this<T>
 	{
 		using base_t = std::enable_shared_from_this<T>;
 		base_t& base( ) { return *this; }
