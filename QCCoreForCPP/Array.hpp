@@ -151,7 +151,7 @@ namespace QCCore
 		{
 			return
 				ext[ 1 ] +
-				ext[ 0 ] * ext[ 1 ];
+				ext[ 0 ] * sz[ 1 ];
 		}
 	public:
 		typedef typename base_t::value_type value_type;
@@ -212,7 +212,7 @@ namespace QCCore
 		{
 			return
 				ext[ 2 ] +
-				ext[ 1 ] * sz[ 2 ] * +
+				ext[ 1 ] * sz[ 2 ] +
 				ext[ 0 ] * sz[ 1 ] * sz[ 2 ];
 		}
 	public:
@@ -356,7 +356,6 @@ namespace QCCore
 		forceinline const_reverse_iterator crbegin( ) const { return base( ).rbegin( ); }
 		forceinline const_reverse_iterator crend( ) const { return base( ).rend( ); }
 	#pragma endregion
-
 
 		forceinline DynArray( ) : base_t( ) { }
 		inline DynArray( int len ) : base_t( ) { base( ).reserve( ( ULong ) len ); }
@@ -536,6 +535,6 @@ namespace QCCore
 		forceinline base_t& __NATIVE( ) { return base( ); }
 		forceinline const base_t& __NATIVE( ) const { return base( ); }
 
-		forceinline void swap( Array<T>& rhs ) { base( ).swap( rhs.base( ) ); }
+		forceinline void swap( DynArray<T>& rhs ) { base( ).swap( rhs.base( ) ); }
 	};
 }

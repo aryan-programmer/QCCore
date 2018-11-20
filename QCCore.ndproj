@@ -3,6 +3,7 @@
   <OutputDir KeepXmlFiles="False">E:\C++ Projects\Quick C\QCCore\NDependOut</OutputDir>
   <Assemblies>
     <Name>QCCore</Name>
+    <Name>QCCoreForCSTest</Name>
   </Assemblies>
   <FrameworkAssemblies>
     <Name>mscorlib</Name>
@@ -1061,8 +1062,7 @@ let lookup = JustMyCode.Methods.Where(m =>
    // Don't match overloads due tu the visitor pattern, based on a naming convention.
   !m.SimpleName.ToLower().StartsWithAny("visit", "dispatch") &&
   !(m.FullName.Contains("QStruct")) && 
-  !(m.FullName.Contains("Pipable")) &&
-  !m.FullName.Contains("Math")
+  !(m.FullName.Contains("Pipable")) && m.SimpleName != "Lambda"
 ).ToLookup(m => m.ParentType.FullName + "."+ m.SimpleName)
 
 from @group in lookup
@@ -1095,7 +1095,7 @@ select new {
 // Method overloading is the ability to create multiple methods of the same name 
 // with different implementations, and various set of parameters.
 //
-// This rule matches sets of methods with 6 overloads or more.
+// This rule matches sets of methods with 10 overloads or more.
 //
 // Such method set might be a problem to maintain 
 // and provokes coupling higher than necessary.
@@ -1137,8 +1137,7 @@ warnif count > 0 from t in JustMyCode.Types where
    !t.DeriveFrom("Microsoft.EntityFrameworkCore.Infrastructure.ModelSnapshot".AllowNoMatch()) &&
    !t.DeriveFrom("Microsoft.EntityFrameworkCore.DbContext".AllowNoMatch()) &&
    !t.DeriveFrom("Microsoft.EntityFrameworkCore.Migrations.Migration".AllowNoMatch()) &&
-   !(t.Name.Contains("CSPrint_Tuple_ClassTemplates")) && 
-   !(t.Name.Contains("CPPPrint_Tuple_ClassTemplates"))
+   t.SimpleName != "Program"
 
 
 
@@ -1252,6 +1251,7 @@ warnif count > 0 from t in JustMyCode.Types where
       <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Avoid methods with too many local variables</Name>
 // <Id>ND1008:AvoidMethodsWithTooManyLocalVariables</Id>
 warnif count > 0 from m in JustMyCode.Methods where 
+  m.ParentType.SimpleName!="Program" &&
   m.NbVariables > 15 
   orderby m.NbVariables descending
 select new { 
@@ -3393,7 +3393,8 @@ warnif count > 0 from n in Application.Namespaces where
   let childTypes = n.ChildTypes.Where(t => JustMyCode.Contains(t))
   where childTypes.Count() > 0
 select new { 
-   n, 
+   n,
+   n.ChildTypes, 
    childTypes,
    n.NbLinesOfCode,
    Debt = 2*childTypes.Count().ToMinutes().ToDebt(),

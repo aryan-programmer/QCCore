@@ -6,6 +6,7 @@
 namespace QCCore
 {
 	using nullptr_t = std::nullptr_t;
+	using NullPtrType = std::nullptr_t;
 	struct NullPointerException : public std::exception
 	{
 		NullPointerException( ) noexcept { }
@@ -33,8 +34,8 @@ namespace QCCore
 		using element_type = T;
 
 		forceinline GCPtr( ) noexcept :ptr {  } { }
-		forceinline GCPtr( nullptr_t ) noexcept :ptr {  } { }
-		forceinline explicit GCPtr( T* value ) noexcept : ptr { value } { }
+		forceinline GCPtr( nullptr_t ) noexcept :ptr { } { }
+		forceinline explicit GCPtr( T* value ) : ptr { value } { }
 		forceinline explicit GCPtr( const T& value ) : ptr { new T( value ) } { }
 
 		forceinline explicit operator bool( ) const noexcept { return ptr != nullptr; }
@@ -100,9 +101,20 @@ namespace QCCore
 		forceinline WeakPtr<T>& operator=( const GCPtr<T>& ptr ) { wptr = ptr.ptr; return *this; }
 		forceinline WeakPtr<T>& operator=( GCPtr<T>&& ptr ) { wptr = ptr.ptr; return *this; }
 
+		forceinline bool operator!=( nullptr_t )const noexcept { return wptr != nullptr; }
+		forceinline bool operator==( nullptr_t )const noexcept { return wptr == nullptr; }
+
 		template<typename T>
 		friend class IEnableGCPtrFromMe;
 	};
+
+	template<typename T>
+	forceinline bool operator!=( nullptr_t , const WeakPtr<T>& val )
+	{ return val != nullptr; }
+
+	template<typename T>
+	forceinline bool operator==( nullptr_t , const WeakPtr<T>& val )
+	{ return val == nullptr; }
 
 	template<typename T>
 	class IEnableGCPtrFromMe : public std::enable_shared_from_this<T>

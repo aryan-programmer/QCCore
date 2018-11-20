@@ -49,13 +49,13 @@ namespace QCCore
 		try { return boost::any_cast< T >( obj ); }
 		catch ( const std::exception& ) { throw InvalidCastException( ); }
 	}
-	template<typename T> forceinline T* AsPtr( Object* obj ) noexcept( boost::any_cast< T >( obj ) )
+	template<typename T> forceinline T* AsPtr( Object& obj ) noexcept( noexcept( boost::any_cast< T >( &obj ) ) )
 	{
-		return boost::any_cast< T >( obj );
+		return boost::any_cast< T >( &obj );
 	}
-	template<typename T> forceinline const T* As( const Object* obj )
+	template<typename T> forceinline const T* AsPtr( const Object& obj ) noexcept( noexcept( boost::any_cast< T >( &obj ) ) )
 	{
-		return boost::any_cast< T >( obj );
+		return boost::any_cast< T >( &obj );
 	}
 	template<typename T> forceinline String TypeName( )
 	{
@@ -76,8 +76,8 @@ namespace QCCore
 	template<typename T> forceinline auto Pipable( T&& v )
 	{ return boost::hof::pipable( v ); }
 
-	template<class _Ty>
-	boost::add_reference_t<boost::add_const<_Ty>> cdeclref( ) noexcept;
+	template<class T>
+	boost::add_reference_t<boost::add_const<T>> cdeclref( ) noexcept;
 
 	template<typename T1 , typename T2>
 	using AreComparable = decltype( cdeclref<T1>( ) == cdeclref<T2>( ) );
@@ -85,8 +85,7 @@ namespace QCCore
 	template<typename T1 , typename T2>
 	constexpr forceinline bool AreEqualDTrue( const T1& v1 , const T2& v2 )
 	{
-		if constexpr ( boost::is_detected_v<AreComparable , T1 , T2> )
-			return v1 == v2;
+		if constexpr ( boost::is_detected_v<AreComparable , T1 , T2> ) return v1 == v2;
 		else return true;
 	}
 

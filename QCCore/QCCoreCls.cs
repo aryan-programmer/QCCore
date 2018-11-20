@@ -33,10 +33,11 @@
 		public const char WCharMax = char.MaxValue;
 		public const byte ByteMin = byte.MinValue;
 		public const byte ByteMax = byte.MaxValue;
+		public const sbyte SByteMin = sbyte.MinValue;
+		public const sbyte SByteMax = sbyte.MaxValue;
 		#endregion
 
 		public static T As<T>( object obj ) => ( T ) obj;
-		public static T AsPtr<T>( object obj ) where T : class => obj as T;
 		public static string TypeName<T>( T v ) => typeof( T ).FullName;
 		public static string TypeNameNoCVR<T>( T v ) => typeof( T ).FullName;
 		public static string TypeName<T>( ) => typeof( T ).FullName;

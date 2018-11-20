@@ -105,7 +105,7 @@ namespace QCCore
 	___NODISCARD___ forceinline static Double Tanh( Double value ) { return tanh( value ); }
 #pragma endregion
 
-#pragma region Nearest Integer Floating poInt operations
+#pragma region Nearest Integer Floating point operations
 	___NODISCARD___ forceinline static Double Ceil( Double a ) { return ceil( a ); }
 	___NODISCARD___ forceinline static Double Floor( Double d ) { return floor( d ); }
 	___NODISCARD___ forceinline static Double Round( Double a ) { return round( a ); }
@@ -114,21 +114,18 @@ namespace QCCore
 
 #pragma region Sign
 	template<typename T>
-	Int sign( T v , T zero , T one , T negOne )
+	Int sign( T v , T zero )
 	{
+		if ( v < zero )return -1;
 		if ( v == zero )return 0;
-		if ( v >= one )return 1;
-		if ( v <= negOne )return -1;
+		if ( v > zero )return +1;
 	}
 
-	template<typename T>
-	___NODISCARD___ forceinline static Int sign( T v , T zero , T one ) { return ::QCCore::sign<T>( v , zero , one , -one ); }
-
-	___NODISCARD___ forceinline static Int Sign( SByte value ) { return sign( value , ( SByte ) 0 , ( SByte ) 1 ); }
-	___NODISCARD___ forceinline static Int Sign( Double value ) { return sign( value , 0.0 , 1.0 ); }
-	___NODISCARD___ forceinline static Int Sign( Float value ) { return sign( value , 0.0f , 1.0f ); }
-	___NODISCARD___ forceinline static Int Sign( Long value ) { return sign( value , 0i64 , 1i64 ); }
-	___NODISCARD___ forceinline static Int Sign( Short value ) { return sign( value , 0i16 , 1i16 ); }
-	___NODISCARD___ forceinline static Int Sign( Int value ) { return sign( value , 0 , 0 ); }
+	___NODISCARD___ forceinline static Int Sign( SByte value ) { return sign( value , SByte { 0 } ); }
+	___NODISCARD___ forceinline static Int Sign( Double value ) { return sign( value , 0.0 ); }
+	___NODISCARD___ forceinline static Int Sign( Float value ) { return sign( value , 0.0f ); }
+	___NODISCARD___ forceinline static Int Sign( Long value ) { return sign( value , 0i64 ); }
+	___NODISCARD___ forceinline static Int Sign( Short value ) { return sign( value , 0i16 ); }
+	___NODISCARD___ forceinline static Int Sign( Int value ) { return sign( value , 0 ); }
 #pragma endregion
 }

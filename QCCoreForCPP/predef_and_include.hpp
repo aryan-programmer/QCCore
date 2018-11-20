@@ -232,7 +232,7 @@ namespace QCCore
 	size_t CombineHashCodes( Args&&... hashCodes );
 
 	template<typename T1 , typename T2>
-	constexpr inline bool AreEqualDTrue( const T1& v1 , const T2& v2 );
+	constexpr forceinline bool AreEqualDTrue( const T1& v1 , const T2& v2 );
 
 #pragma region Limits
 	inline constexpr const Int16	Int16Min = INT16_MIN;

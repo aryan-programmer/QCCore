@@ -1,5 +1,4 @@
-﻿
-namespace QCCore
+﻿namespace QCCore
 {
 	using System;
 	using System.Collections.Generic;
@@ -86,7 +85,7 @@ namespace QCCore
 
 		public bool Expired( ) => !( wptr?.IsAlive ?? true );
 
-		public GCPtr<T> Lock( ) => wptr == null ? new GCPtr<T>( ( T ) wptr.Target ) : new GCPtr<T>( MainCls.NullPtr );
+		public GCPtr<T> Lock( ) => wptr != null ? new GCPtr<T>( ( T ) wptr.Target ) : new GCPtr<T>( MainCls.NullPtr );
 
 		public GCPtr<T> LockIfNotThrow( )
 		{
