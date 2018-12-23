@@ -49,14 +49,6 @@ namespace QCCore
 		try { return boost::any_cast< T >( obj ); }
 		catch ( const std::exception& ) { throw InvalidCastException( ); }
 	}
-	template<typename T> forceinline T* AsPtr( Object& obj ) noexcept( noexcept( boost::any_cast< T >( &obj ) ) )
-	{
-		return boost::any_cast< T >( &obj );
-	}
-	template<typename T> forceinline const T* AsPtr( const Object& obj ) noexcept( noexcept( boost::any_cast< T >( &obj ) ) )
-	{
-		return boost::any_cast< T >( &obj );
-	}
 	template<typename T> forceinline String TypeName( )
 	{
 		return boost::typeindex::type_id_with_cvr<T>( ).pretty_name( );
@@ -76,8 +68,7 @@ namespace QCCore
 	template<typename T> forceinline auto Pipable( T&& v )
 	{ return boost::hof::pipable( v ); }
 
-	template<class T>
-	boost::add_reference_t<boost::add_const<T>> cdeclref( ) noexcept;
+	template<class T> boost::add_reference_t<boost::add_const<T>> cdeclref( ) noexcept;
 
 	template<typename T1 , typename T2>
 	using AreComparable = decltype( cdeclref<T1>( ) == cdeclref<T2>( ) );
@@ -113,9 +104,7 @@ namespace QCCore
 	template<typename T> struct __dimentionality;
 
 	template<typename... Ts>
-	struct __dimentionality<QStruct<Ts...>>:std::integral_constant<size_t,sizeof...(Ts )>
-	{
-	};
+	struct __dimentionality<QStruct<Ts...>>:std::integral_constant<size_t,sizeof...( Ts )>{};
 }
 
 #include "ConstN.hpp"

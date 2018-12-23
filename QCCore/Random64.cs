@@ -14,7 +14,7 @@ namespace QCCore
 
 		public ulong Get( )
 		{
-			byte[ ] data = new byte[ sizeof( ulong ) ];
+			var data = new byte[ sizeof( ulong ) ];
 			rndNG.GetNonZeroBytes( data );
 			return System.BitConverter.ToUInt64( data , 0 );
 		}
@@ -22,7 +22,7 @@ namespace QCCore
 		public double GetDbl( ) => ( ( double ) GetLong( 0 , PowVal ) ) / PowVal;
 		public Array<byte> GetBytes( int len )
 		{
-			Array<byte> bytes = new Array<byte>( ( ulong ) len );
+			var bytes = new Array<byte>( ( ulong ) len );
 			rndNG.GetBytes( bytes.__NATIVE() );
 			return bytes;
 		}

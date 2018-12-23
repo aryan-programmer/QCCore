@@ -23,7 +23,7 @@
 #include <boost\preprocessor\arithmetic\inc.hpp>
 
 #define _DECOMPOSE_QS_NNV_helper(r, data, i, elem) elem = data.BOOST_PP_CAT(Item,BOOST_PP_INC(i));
-#define _DECOMPOSE_QS_NNV(qstruct, ...) BOOST_PP_SEQ_FOR_EACH_I(_DECOMPOSE_QS_NNV_helper,qstruct,BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__)); static_assert(::QCCore::__dimentionality<boost::remove_cv_ref_t<decltype(qstruct)>>::value == BOOST_PP_VARIADIC_SIZE(__VA_ARGS__),"The number of elements of the QStruct and the number of variables being decomposed to must match.")
+#define _DECOMPOSE_QS_NNV(qstruct, ...) BOOST_PP_SEQ_FOR_EACH_I(_DECOMPOSE_QS_NNV_helper,qstruct,BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__)); static_assert(::QCCore::__dimentionality<boost::remove_cv_ref_t<decltype(qstruct)>>::value == BOOST_PP_VARIADIC_SIZE(__VA_ARGS__), "The number of elements of the QStruct and the number of variables being decomposed to must match.")
 #define _DECOMPOSE_QS(qstruct, ...) auto [__VA_ARGS__] = qstruct
 #define forceinline BOOST_FORCEINLINE
 
@@ -225,8 +225,7 @@ namespace QCCore
 	using Double = double;
 	template<typename TReturn , typename... TArgs>
 	using Function = std::function<TReturn( TArgs... )>;
-	template<typename... TArgs>
-	using VoidFunction = std::function<void( TArgs... )>;
+	template<typename... TArgs> using VoidFunction = std::function<void( TArgs... )>;
 
 	template<typename... Args>
 	size_t CombineHashCodes( Args&&... hashCodes );
