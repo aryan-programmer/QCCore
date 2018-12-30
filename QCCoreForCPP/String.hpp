@@ -13,7 +13,7 @@ namespace QCCore
 	public:
 		using base_t = std::basic_string<T>;
 		forceinline base_t& base( ) { return *this; }
-		forceinline constexpr const base_t& base( )const { return *this; }
+		forceinline const base_t& base( )const { return *this; }
 
 		using self = BasicString<T>;
 		using value_type = T;
@@ -25,18 +25,18 @@ namespace QCCore
 		using const_reverse_iterator = typename base_t::const_reverse_iterator;
 
 		forceinline iterator begin( ) { return std::begin( base( ) ); }
-		forceinline constexpr const_iterator begin( ) const { return std::begin( base( ) ); }
+		forceinline const_iterator begin( ) const { return std::begin( base( ) ); }
 		forceinline iterator end( ) { return std::end( base( ) ); }
-		forceinline constexpr const_iterator end( ) const { return std::end( base( ) ); }
-		forceinline constexpr const_iterator cbegin( ) const { return std::cbegin( base( ) ); }
-		forceinline constexpr const_iterator cend( ) const { return std::cend( base( ) ); }
+		forceinline const_iterator end( ) const { return std::end( base( ) ); }
+		forceinline const_iterator cbegin( ) const { return std::cbegin( base( ) ); }
+		forceinline const_iterator cend( ) const { return std::cend( base( ) ); }
 
 		forceinline reverse_iterator rbegin( ) { return std::rbegin( base( ) ); }
-		forceinline constexpr const_reverse_iterator rbegin( ) const { return std::rbegin( base( ) ); }
+		forceinline const_reverse_iterator rbegin( ) const { return std::rbegin( base( ) ); }
 		forceinline reverse_iterator rend( ) { return std::rend( base( ) ); }
-		forceinline constexpr const_reverse_iterator rend( ) const { return std::rend( base( ) ); }
-		forceinline constexpr const_reverse_iterator crbegin( ) const { return std::crbegin( base( ) ); }
-		forceinline constexpr const_reverse_iterator crend( ) const { return std::crend( base( ) ); }
+		forceinline const_reverse_iterator rend( ) const { return std::rend( base( ) ); }
+		forceinline const_reverse_iterator crbegin( ) const { return std::crbegin( base( ) ); }
+		forceinline const_reverse_iterator crend( ) const { return std::crend( base( ) ); }
 
 		forceinline BasicString( const std::basic_string_view<T>& v ) :base_t( v ) { }
 		forceinline BasicString( const BasicStringRef<T>& v );
@@ -106,9 +106,9 @@ namespace QCCore
 		forceinline constexpr const_reverse_iterator crbegin( ) const { return std::crbegin( base( ) ); }
 		forceinline constexpr const_reverse_iterator crend( ) const { return std::crend( base( ) ); }
 
-		forceinline constexpr BasicStringRef(  ) : base_t(  ) { }
+		forceinline constexpr BasicStringRef( ) : base_t( ) { }
 		forceinline constexpr BasicStringRef( const T* value ) : base_t( value ) { }
-		forceinline constexpr BasicStringRef( const T* value , int startIndex , int length ) : base_t( value , startIndex , length ) { }
+		forceinline constexpr BasicStringRef( const T* value , int startIndex , int length ) : base_t( value + startIndex , length ) { }
 
 		forceinline constexpr const T& operator[]( int idx ) const { return base( )[ ( size_t ) idx ]; }
 
