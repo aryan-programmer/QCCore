@@ -66,6 +66,8 @@ namespace QCCore
 		forceinline self operator+( self&& s ) const { return self( base( ) + std::move( s.base( ) ) ); }
 		forceinline bool operator==( const self& s ) const { return base( ) == s.base( ); }
 		forceinline bool operator!=( const self& s ) const { return base( ) != s.base( ); }
+		forceinline bool operator==( const T* s ) const { return base( ) == s; }
+		forceinline bool operator!=( const T* s ) const { return base( ) != s; }
 
 		forceinline void swap( self& rhs ) { base( ).swap( rhs.base( ) ); }
 
@@ -127,11 +129,18 @@ namespace QCCore
 		forceinline operator BasicString<T>( ) { return BasicString<T>( base( ) ); }
 		forceinline constexpr bool operator==( const self& s ) const { return base( ) == s.base( ); }
 		forceinline constexpr bool operator!=( const self& s ) const { return base( ) != s.base( ); }
+		forceinline bool operator==( const T* s ) const { return base( ) == s; }
+		forceinline bool operator!=( const T* s ) const { return base( ) != s; }
 
 		forceinline void swap( self& rhs ) { base( ).swap( rhs.base( ) ); }
 
 		template<typename T> friend class BasicString;
 	};
+
+	template<typename T> forceinline bool operator==( const T* b, const BasicString<T>& str ) { return str == b; }
+	template<typename T> forceinline bool operator!=( const T* b, const BasicString<T>& str ) { return str != b; }
+	template<typename T> forceinline bool operator==( const T* b, const BasicStringRef<T>& str ) { return str == b; }
+	template<typename T> forceinline bool operator!=( const T* b, const BasicStringRef<T>& str ) { return str != b; }
 
 	using String = BasicString<char>;
 	using WString = BasicString<wchar_t>;
