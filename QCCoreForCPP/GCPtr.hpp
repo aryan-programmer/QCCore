@@ -26,7 +26,7 @@ namespace QCCore
 	{
 		std::shared_ptr<T> ptr;
 
-		void NoValueThenThrow( ) const { if ( !HasValue( ) )throw new NullPointerException( ); }
+		void NoValueThenThrow( ) const { if ( !HasValue( ) )throw NullPointerException( ); }
 
 		forceinline GCPtr( std::shared_ptr<T>&& p ) :ptr { p } { }
 		forceinline GCPtr( const std::shared_ptr<T>& p ) : ptr { p } { }
